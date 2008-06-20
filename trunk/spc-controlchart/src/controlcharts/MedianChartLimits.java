@@ -16,19 +16,8 @@ import data.DataSetItem;
 public class MedianChartLimits extends GenericChartLimitsBase
 {
 	private Double term1; 
-	private Double term2;
-	
-	public MedianChartLimits(Integer size) 
-	{
-		super(size);
-	}
-	
-	public MedianChartLimits() 
-	{
+	private Double term2;		
 		
-	}
-	
-	@Override
 	protected Double calculateTerm1() 
 	{
 		if(this.term1==null)
