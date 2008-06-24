@@ -56,15 +56,15 @@ public class TesteTacio {
             System.out.println("------------------------");
         }
         System.out.print("LSC=");
-        System.out.println(limites_controle.calculateUpperControlLimit());
+        System.out.println(limites_controle.calculateUpperControlLimit(null));
         System.out.print("LSA=");
-        System.out.println(limites_controle.calculateUpperAdvertenceLimit());
+        System.out.println(limites_controle.calculateUpperAdvertenceLimit(null));
         System.out.print("LC=");
-        System.out.println(limites_controle.calculateCentralLine());
+        System.out.println(limites_controle.calculateCentralLine(null));
         System.out.print("LIA=");
-        System.out.println(limites_controle.calculateLowerAdvertenceLimit());
+        System.out.println(limites_controle.calculateLowerAdvertenceLimit(null));
         System.out.print("LIC=");
-        System.out.println(limites_controle.calculateLowerControlLimit());
+        System.out.println(limites_controle.calculateLowerControlLimit(null));
 	}
 
 }

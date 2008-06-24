@@ -7,9 +7,11 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 import controlcharts.GenericChartLimits;
 import controlcharts.GenericChartLimitsBase;
+import controlcharts.RegressionChartLimits;
 
 
 import statistic.GenericStatistic;
+import statistic.RegressionStatistic;
 import statistic.StandardDeviationStatistic;
 
 import data.DataSetException;
@@ -34,8 +36,17 @@ public class GeraGraficos {
 	}
 	
 	public static JFreeChart lineChart(GenericStatistic statistic, File arquivo, GenericChartLimits limites) throws DataSetException{
-		//	create a chart...		
-		JFreeChart chart = ChartFactory.createLineChart("Gráfico de Controle da Mediana","Amostras","Mediana",DataBases.dataLineChart_by_paula(statistic, arquivo,limites),PlotOrientation.VERTICAL,true, true, false);
+		//	create a chart...
+		JFreeChart chart;
+		if(statistic instanceof RegressionStatistic)
+		{
+			chart = ChartFactory.createLineChart("Gráfico de Controle da Mediana","Amostras","Mediana",DataBases.dataLineChart_regression((RegressionStatistic)statistic, arquivo,(RegressionChartLimits)limites),PlotOrientation.VERTICAL,true, true, false);
+		}
+		else
+		{
+			chart = ChartFactory.createLineChart("Gráfico de Controle da Mediana","Amostras","Mediana",DataBases.dataLineChart_by_paula(statistic, arquivo,limites),PlotOrientation.VERTICAL,true, true, false);
+		}
+		
 		ConfigureChart.alterarConfiguracaoGrafico(chart);					
 		return chart;	
 	}
