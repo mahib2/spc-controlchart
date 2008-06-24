@@ -30,7 +30,7 @@ public abstract class GenericChartLimitsBase implements GenericChartLimits
 		this.data = new ArrayList<ArrayList<DataSetItem>>(size);
 	}
 	
-	public final Double calculateCentralLine() 
+	public final Double calculateCentralLine(Double x) 
 	{
 		if(this.cl==null)
 		{
@@ -39,7 +39,7 @@ public abstract class GenericChartLimitsBase implements GenericChartLimits
 		return this.cl;
 	}
 
-	public final Double calculateUpperControlLimit() 
+	public final Double calculateUpperControlLimit(Double x) 
 	{
 		if(this.ucl==null)
 		{
@@ -48,7 +48,7 @@ public abstract class GenericChartLimitsBase implements GenericChartLimits
 		return this.ucl;
 	}
 
-	public final Double calculateLowerControlLimit() 
+	public final Double calculateLowerControlLimit(Double x) 
 	{
 		if(this.lcl==null)
 		{
@@ -57,7 +57,7 @@ public abstract class GenericChartLimitsBase implements GenericChartLimits
 		return this.lcl;
 	}
 
-	public final Double calculateUpperAdvertenceLimit() 
+	public final Double calculateUpperAdvertenceLimit(Double x) 
 	{
 		if(this.ual==null)
 		{
@@ -66,7 +66,7 @@ public abstract class GenericChartLimitsBase implements GenericChartLimits
 		return this.ual;
 	}
 
-	public final Double calculateLowerAdvertenceLimit() 
+	public final Double calculateLowerAdvertenceLimit(Double x) 
 	{
 		if(this.lal==null)
 		{
