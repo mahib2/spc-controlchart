@@ -38,7 +38,8 @@ public class RegressionStatistic implements GenericStatistic
         	cont++;
         	ArrayList<DataSetItem> item = data_set.next();
         	int tamanho = item.size();
-        	if(tamanho_amostra==null)
+        	tamanho_amostra = tamanho; 
+        	if(tamanho_amostra!=null)
         	{
         		double x = 0;
         		double y = 0;
@@ -88,7 +89,7 @@ public class RegressionStatistic implements GenericStatistic
 		/*JFileChooser chooser = new JFileChooser();
 		chooser.showOpenDialog(null);*/
 		//File arquivo = chooser.getSelectedFile();
-		File arquivo = new File("dados_teste.csv");
+		File arquivo = new File("regressao2_a_missao.csv");
 
 		if(arquivo==null)
 		{
@@ -96,19 +97,30 @@ public class RegressionStatistic implements GenericStatistic
 		}
 		DataConverter conversor_long = new DoubleDataConverter();
 		DataSetIterator data_set = new DataSetCsvIterator(arquivo,conversor_long,false,null);
-		GenericStatistic statistica_teste = new RegressionStatistic(data_set);
+		RegressionStatistic statistica_teste = new RegressionStatistic(data_set);
 		int cont = 0;
+		
+		
+		 System.out.print("Intercept: ");
+	     System.out.println(statistica_teste.getRegressao().getIntercept());
+	     System.out.print("Slope: ");
+	     System.out.println(statistica_teste.getRegressao().getSlope());
+	     System.out.print("RSquare:");
+	     System.out.println(statistica_teste.getRegressao().getRSquare());
+	     System.out.print("N:");
+	     System.out.println(statistica_teste.getRegressao().getN());
+	     System.out.print("R:");
+	     System.out.println(statistica_teste.getRegressao().getR());
+		
 		DataSetIterator data_set2 = new DataSetCsvIterator(arquivo,conversor_long,false,null);
-		while(!data_set.isEmpty())
+		while(!data_set2.isEmpty())
 		{
 			cont++;
-			ArrayList<DataSetItem> item = data_set.next();
-			ArrayList<DataSetItem> array_parametro = new ArrayList<DataSetItem>(1);
-			DataSetItem item_parametro = new DataSetItem();
-			item_parametro.setX(new Double(cont));
-			array_parametro.add(item_parametro);
-			Number estatistica = statistica_teste.generateStatistic(array_parametro);
-			System.out.println("Regressão: "+estatistica);
+			ArrayList<DataSetItem> item = data_set2.next();
+			DataSetItem data_part = item.get(0);
+			Double x = data_part.getY();
+			
+			System.out.println("Regressão: "+statistica_teste.getRegressao().predict(x));
 
 		}
 	}

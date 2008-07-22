@@ -230,7 +230,7 @@ public class DataBases {
         DataConverter conversor_long = new DoubleDataConverter();
         DataSetIterator data_set1 = new DataSetCsvIterator(arquivo,conversor_long,false,null);
         statistic = new RegressionStatistic(data_set1);
-        limites_controle = new RegressionChartLimits(statistic.getRegressao());
+        limites_controle = new RegressionChartLimits(statistic.getRegressao(),new DataSetCsvIterator(arquivo,conversor_long,false,null));
         DataSetIterator data_set2 = new DataSetCsvIterator(arquivo,conversor_long,false,null);
         
         
@@ -239,30 +239,42 @@ public class DataBases {
         while(!data_set2.isEmpty())
         {
         	cont++;
-        	data_set2.next();
-        	ArrayList<DataSetItem> array_parametro = new ArrayList<DataSetItem>(1);
-			DataSetItem item_parametro = new DataSetItem();
-			item_parametro.setX(new Double(cont));
-			array_parametro.add(item_parametro);
-			Number estatistica_calculada = statistic.generateStatistic(array_parametro);
-        	dataset.addValue(estatistica_calculada, series4,String.valueOf(cont));
-        }
+        	ArrayList<DataSetItem> item = data_set2.next();
+        	//ArrayList<DataSetItem> array_parametro = new ArrayList<DataSetItem>(1);
+			//DataSetItem item_parametro = new DataSetItem();
+        	double x = 0;
+    		double y = 0;
+        	int tamanho = item.size();
+        	if(tamanho>0)
+        	{
+        		
+        		for(int cont2=0;(cont2<2 && cont2<tamanho);cont2++)
+        		{
+        			DataSetItem sample_part = item.get(cont2);
+        			if(cont2==0)
+        			{
+        				x = sample_part.getY();
+        			}
+        			else
+        			{
+        				y = sample_part.getY();
+        			}
+        		}//fim-for
+        	}//fim-if
+        	dataset.addValue(y, series4,String.valueOf(x));
+        	
+        	Double lc = limites_controle.calculateCentralLine(x);
+	        Double lsc = limites_controle.calculateUpperControlLimit(x);
+	        Double lic = limites_controle.calculateLowerControlLimit(x);
+	        Double lia = limites_controle.calculateLowerAdvertenceLimit(x);
+	        Double lsa = limites_controle.calculateUpperAdvertenceLimit(x);
+			dataset.addValue(lsc, series1, String.valueOf(x));
+        	dataset.addValue(lc, series2, String.valueOf(x));
+        	dataset.addValue(lic, series3, String.valueOf(x));
+        	dataset.addValue(lia, series5, String.valueOf(x));
+        	dataset.addValue(lsa, series6, String.valueOf(x));
+        }//fim-while
         
-        
-        
-		for(int cont2=1;cont2<=cont;cont2++)
-		{
-			Double lc = limites_controle.calculateCentralLine(new Double(cont2));
-	        Double lsc = limites_controle.calculateUpperControlLimit(new Double(cont2));
-	        Double lic = limites_controle.calculateLowerControlLimit(new Double(cont2));
-	        Double lia = limites_controle.calculateLowerAdvertenceLimit(new Double(cont2));
-	        Double lsa = limites_controle.calculateUpperAdvertenceLimit(new Double(cont2));
-			dataset.addValue(lsc, series1, String.valueOf(cont2));
-        	dataset.addValue(lc, series2, String.valueOf(cont2));
-        	dataset.addValue(lic, series3, String.valueOf(cont2));
-        	dataset.addValue(lia, series5, String.valueOf(cont2));
-        	dataset.addValue(lsa, series6, String.valueOf(cont2));
-		}
 		return dataset;	
 	}
 	
