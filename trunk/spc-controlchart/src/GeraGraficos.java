@@ -40,11 +40,11 @@ public class GeraGraficos {
 		JFreeChart chart;
 		if(statistic instanceof RegressionStatistic)
 		{
-			chart = ChartFactory.createLineChart("Gráfico de Controle da Mediana","Amostras","Mediana",DataBases.dataLineChart_regression((RegressionStatistic)statistic, arquivo,(RegressionChartLimits)limites),PlotOrientation.VERTICAL,true, true, false);
+			chart = ChartFactory.createLineChart("Gráfico de Controle","Amostras","Mediana",DataBases.dataLineChart_regression((RegressionStatistic)statistic, arquivo,(RegressionChartLimits)limites),PlotOrientation.VERTICAL,true, true, false);
 		}
 		else
 		{
-			chart = ChartFactory.createLineChart("Gráfico de Controle da Mediana","Amostras","Mediana",DataBases.dataLineChart_by_paula(statistic, arquivo,limites),PlotOrientation.VERTICAL,true, true, false);
+			chart = ChartFactory.createLineChart("Gráfico de Controle","Amostras","Mediana",DataBases.dataLineChart_by_paula(statistic, arquivo,limites),PlotOrientation.VERTICAL,true, true, false);
 		}
 		
 		ConfigureChart.alterarConfiguracaoGrafico(chart);					

@@ -1,6 +1,8 @@
 
 import java.awt.Dimension;
 import java.io.File;
+
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import org.jfree.chart.ChartFrame;
 import statistic.GenericStatistic;
@@ -135,6 +137,7 @@ public class ControlChart extends javax.swing.JFrame {
 	/**
 	 * @param agrs the command line arguments
 	 */
+	
 
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
