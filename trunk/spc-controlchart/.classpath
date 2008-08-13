@@ -6,6 +6,6 @@
 	<classpathentry kind="lib" path="src/lib/jcommon-1.0.0.jar"/>
 	<classpathentry kind="lib" path="src/lib/jfreechart-1.0.0.jar"/>
 	<classpathentry kind="lib" path="src/lib/swing-layout-1.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/cibelle/workspace/spc-controlchart/src/lib/AbsoluteLayout.jar"/>
+	<classpathentry kind="lib" path="src/lib/AbsoluteLayout.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
