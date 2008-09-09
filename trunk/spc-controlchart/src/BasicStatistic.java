@@ -3,15 +3,16 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
 
-import math.StatisticBasic;
+import math.CalculateStatisticBasic;
 
 import org.apache.commons.math.stat.descriptive.DescriptiveStatistics;
+
+import types.DataConverter;
+import types.DoubleDataConverter;
 
 import data.DataSetCsvIterator;
 import data.DataSetException;
 import data.DataSetIterator;
-import data.types.DataConverter;
-import data.types.DoubleDataConverter;
 
 /*
  * BasicStatistic.java
@@ -31,12 +32,12 @@ public class BasicStatistic extends javax.swing.JFrame {
     public BasicStatistic(DataSetIterator data_set) throws DataSetException {
         initComponents();      
         
-		StatisticBasic descritive = new StatisticBasic(data_set);
-		String amostras = Double.toString(descritive.getAmostras());
+		CalculateStatisticBasic descritive = new CalculateStatisticBasic(data_set);
+		String amostras = Double.toString(descritive.getQtdAmostras());
 		String minimo = Double.toString(descritive.getMin());
 		String maximo = Double.toString(descritive.getMax());
 		String desvio_padrao = Double.toString(descritive.getDesvio());
-		String media_amostras = Double.toString(descritive.getAmostras());
+		String media_amostras = Double.toString(descritive.getQtdAmostras());
 		String variancia_amostras = Double.toString(descritive.getVariance());
 		numero_amostras.setText(amostras);
 		min.setText(minimo);
