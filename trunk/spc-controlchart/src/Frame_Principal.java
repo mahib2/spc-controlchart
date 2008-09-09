@@ -25,16 +25,17 @@ import controlcharts.StandardDeviationChartLimits;
 import data.DataSetCsvIterator;
 import data.DataSetException;
 import data.DataSetIterator;
-import data.types.DataConverter;
-import data.types.DoubleDataConverter;
 
 import java.io.File;
 
 
+import statistic.CusumStatistic;
 import statistic.GenericStatistic;
 import statistic.MedianStatistic;
 import statistic.RegressionStatistic;
 import statistic.StandardDeviationStatistic;
+import types.DataConverter;
+import types.DoubleDataConverter;
 
 import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
@@ -73,7 +74,9 @@ public class Frame_Principal extends javax.swing.JFrame {
         normality_test = new javax.swing.JMenuItem();
         control_chart = new javax.swing.JMenu();
         control_charMedian = new javax.swing.JMenuItem();
-        Regression = new javax.swing.JMenuItem();
+        regression = new javax.swing.JMenuItem();
+        cusum = new javax.swing.JMenuItem();
+        xmr = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Controle Estatístico de Qualidade - CEQ");
@@ -145,13 +148,29 @@ public class Frame_Principal extends javax.swing.JFrame {
         });
         control_chart.add(control_charMedian);
 
-        Regression.setText("Regression");
-        Regression.addActionListener(new java.awt.event.ActionListener() {
+        regression.setText("Regression");
+        regression.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RegressionActionPerformed(evt);
+                regressionActionPerformed(evt);
             }
         });
-        control_chart.add(Regression);
+        control_chart.add(regression);
+
+        cusum.setText("Cumulative Sum");
+        cusum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cusumActionPerformed(evt);
+            }
+        });
+        control_chart.add(cusum);
+
+        xmr.setText("Individual Moving Range");
+        xmr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                xmrActionPerformed(evt);
+            }
+        });
+        control_chart.add(xmr);
 
         jMenu2.add(control_chart);
 
@@ -247,7 +266,7 @@ private File OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:ev
 	return this.abrirArquivo();
 }//GEN-LAST:event_OpenActionPerformed
 
-private void RegressionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegressionActionPerformed
+private void regressionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regressionActionPerformed
     // TODO add your handling code here:
   	RegressionStatistic statistic = new RegressionStatistic();
 		RegressionChartLimits limites = null; 
@@ -268,7 +287,7 @@ private void RegressionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 		}
 		//frame.setLocationByPlatform(true);
                      
-}//GEN-LAST:event_RegressionActionPerformed
+}//GEN-LAST:event_regressionActionPerformed
 
 private void control_chartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_control_chartActionPerformed
     // TODO add your handling code here:
@@ -281,6 +300,32 @@ private void control_charMedianActionPerformed(java.awt.event.ActionEvent evt) {
     ControlChart control_chart = new ControlChart(this);		
     control_chart.show(true);   
 }//GEN-LAST:event_control_charMedianActionPerformed
+
+private void cusumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cusumActionPerformed
+    // TODO add your handling code here:
+	CusumStatistic statistic = new CusumStatistic();
+	//mudar
+	RegressionChartLimits limites = null; 
+	File arquivo = OpenActionPerformed(evt);
+	ChartFrame frame;
+	try 
+	{
+		frame = new ChartFrame("Gerando Gráfico", GeraGraficos.lineChart(statistic, arquivo,limites));
+		Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();                          
+		frame.setLocation(200,200);                
+		frame.pack();
+		frame.setVisible(true);
+	}
+	catch (DataSetException e) 
+	{
+		e.printStackTrace();
+		JOptionPane.showMessageDialog(this, e.getMessage());
+	}
+}//GEN-LAST:event_cusumActionPerformed
+
+private void xmrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xmrActionPerformed
+    // TODO add your handling code here:
+}//GEN-LAST:event_xmrActionPerformed
 
 public static File abrirArquivo()
 {
@@ -308,10 +353,10 @@ public static void main(String args[]) {
 }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem Regression;
     private javax.swing.JMenuItem basic_statistic;
     private javax.swing.JMenuItem control_charMedian;
     private javax.swing.JMenu control_chart;
+    private javax.swing.JMenuItem cusum;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -319,6 +364,8 @@ public static void main(String args[]) {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JMenuItem normality_test;
+    private javax.swing.JMenuItem regression;
+    private javax.swing.JMenuItem xmr;
     // End of variables declaration//GEN-END:variables
 
 }
