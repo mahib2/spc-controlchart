@@ -10,16 +10,17 @@ import javax.swing.JFileChooser;
 import org.apache.commons.math.stat.descriptive.rank.Median;
 import org.jfree.chart.ChartFrame;
 
+import types.DataConverter;
+import types.DoubleDataConverter;
+import types.TypeUtilities;
+
 import controlcharts.GenericChartLimits;
 import controlcharts.StandardDeviationChartLimits;
 
 import data.DataSetCsvIterator;
 import data.DataSetException;
 import data.DataSetItem;
-import data.DataSetIterator;
-import data.types.DataConverter;
-import data.types.DoubleDataConverter;
-import data.types.TypeUtilities;
+import data.DataSetIterate;
 
 public class MedianStatistic implements GenericStatistic 
 {
@@ -58,7 +59,7 @@ public class MedianStatistic implements GenericStatistic
 			System.out.println("Arquivo null");;
 		}
 		DataConverter conversor_long = new DoubleDataConverter();
-		DataSetIterator data_set = new DataSetCsvIterator(arquivo,conversor_long,false,null);
+		DataSetIterate data_set = new DataSetCsvIterator(arquivo,conversor_long,false,null);
 		int cont = 0;
 
 		while(!data_set.isEmpty())

@@ -12,7 +12,7 @@ import types.DoubleDataConverter;
 
 import data.DataSetCsvIterator;
 import data.DataSetException;
-import data.DataSetIterator;
+import data.DataSetIterate;
 
 /*
  * BasicStatistic.java
@@ -29,7 +29,7 @@ public class BasicStatistic extends javax.swing.JFrame {
     
     /** Creates new form BasicStatistic 
      * @throws DataSetException */
-    public BasicStatistic(DataSetIterator data_set) throws DataSetException {
+    public BasicStatistic(DataSetIterate data_set) throws DataSetException {
         initComponents();      
         
 		CalculateStatisticBasic descritive = new CalculateStatisticBasic(data_set);

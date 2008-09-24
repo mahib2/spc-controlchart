@@ -2,8 +2,9 @@ package statistic;
 
 import java.util.ArrayList;
 
+import types.TypeUtilities;
+
 import data.DataSetItem;
-import data.types.TypeUtilities;
 
 public class AverageStatistic implements GenericStatistic 
 {

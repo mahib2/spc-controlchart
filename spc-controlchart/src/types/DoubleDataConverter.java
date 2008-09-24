@@ -1,4 +1,4 @@
-package data.types;
+package types;
 
 public class DoubleDataConverter implements DataConverter 
 {

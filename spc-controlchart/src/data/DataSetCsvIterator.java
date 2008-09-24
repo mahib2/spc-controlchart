@@ -12,7 +12,8 @@ import java.util.StringTokenizer;
 
 import javax.swing.JFileChooser;
 
-import data.types.DataConverter;
+import types.DataConverter;
+
 
 /**
  * O formato de leitura dessa classe e:
@@ -20,7 +21,7 @@ import data.types.DataConverter;
  * 2 - O cabeçalho deve estar na primeira linha 
  * 3 - campos separados por delimitador, sendo que ';' e o default
  */
-public class DataSetCsvIterator implements DataSetIterator
+public class DataSetCsvIterator implements DataSetIterate
 {
 	private BufferedReader arquivo;
 	private static String delimitador = ";";

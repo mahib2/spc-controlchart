@@ -7,19 +7,17 @@ import org.apache.commons.math.stat.regression.SimpleRegression;
 
 import data.DataSetException;
 import data.DataSetItem;
-import data.DataSetIterator;
+import data.DataSetIterate;
 
 public class RegressionChartLimits implements GenericChartLimits
 {
 	private SimpleRegression regressao;
 	private double erro_padrao;
 	
-	public RegressionChartLimits(SimpleRegression regressao, DataSetIterator data_set) throws DataSetException
+	public RegressionChartLimits(SimpleRegression regressao, DataSetIterate data_set) throws DataSetException
 	{
 		this.regressao = regressao;
-		this.erro_padrao = this.calcular_erro_padrao(data_set);
-		System.out.println("Erro padrao:");
-		System.out.println(this.erro_padrao);
+		this.erro_padrao = this.calcular_erro_padrao(data_set);		
 	}
 
 	public void addData(ArrayList<DataSetItem> new_data) 
@@ -27,7 +25,7 @@ public class RegressionChartLimits implements GenericChartLimits
 		//this.data.add(new_data);
 	}
 	
-	private double calcular_erro_padrao(DataSetIterator data_set) throws DataSetException
+	private double calcular_erro_padrao(DataSetIterate data_set) throws DataSetException
 	{
 		//int cont = 0;
 

@@ -5,25 +5,27 @@
 
 package math;
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import org.apache.commons.math.stat.descriptive.*;
 
+import types.DataConverter;
+import types.DoubleDataConverter;
+
 import data.DataSetCsvIterator;
 import data.DataSetException;
 import data.DataSetItem;
-import data.DataSetIterator;
-import data.types.DataConverter;
-import data.types.DoubleDataConverter;
+import data.DataSetIterate;
 /**
  *
  * @author cibelle
  */
 
-public class StatisticBasic {
+public class CalculateStatisticBasic {
 
 	private DescriptiveStatistics descritive;
-	public StatisticBasic(DataSetIterator data_set) throws DataSetException{
+	public CalculateStatisticBasic(DataSetIterate data_set) throws DataSetException{
 		this.descritive = new DescriptiveStatistics();
 		Integer tamanho_amostra = null;
 		int cont = 0;
@@ -53,7 +55,7 @@ public class StatisticBasic {
 		return mean;	
 	}
 	
-	public long getAmostras(){
+	public long getQtdAmostras(){
 		long n = descritive.getN();
 		return n;
 	}

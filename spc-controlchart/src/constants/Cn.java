@@ -1,4 +1,4 @@
-package math.constants;
+package constants;
 
 import math.BetaFunction;
 
