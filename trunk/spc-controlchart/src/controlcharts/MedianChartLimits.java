@@ -3,8 +3,9 @@ package controlcharts;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import math.constants.D2;
-import math.constants.Hn;
+import constants.D2;
+import constants.Hn;
+
 
 import statistic.AmplitudeStatistic;
 import statistic.AverageStatistic;

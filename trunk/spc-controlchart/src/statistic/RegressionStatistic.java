@@ -5,14 +5,15 @@ import java.util.ArrayList;
 
 import org.apache.commons.math.stat.regression.*;
 
+import types.DataConverter;
+import types.DoubleDataConverter;
+
 import javax.swing.JFileChooser;
 
 import data.DataSetCsvIterator;
 import data.DataSetException;
 import data.DataSetItem;
-import data.DataSetIterator;
-import data.types.DataConverter;
-import data.types.DoubleDataConverter;
+import data.DataSetIterate;
 
 public class RegressionStatistic implements GenericStatistic 
 {
@@ -26,7 +27,7 @@ public class RegressionStatistic implements GenericStatistic
 		
 	}
 	
-	public RegressionStatistic(DataSetIterator data_set) throws DataSetException
+	public RegressionStatistic(DataSetIterate data_set) throws DataSetException
 	{
 		//DataConverter conversor_long = new DoubleDataConverter();
         //DataSetIterator data_set = new DataSetCsvIterator(arquivo,conversor_long,false,null);
@@ -96,7 +97,7 @@ public class RegressionStatistic implements GenericStatistic
 			System.out.println("Arquivo null");;
 		}
 		DataConverter conversor_long = new DoubleDataConverter();
-		DataSetIterator data_set = new DataSetCsvIterator(arquivo,conversor_long,false,null);
+		DataSetIterate data_set = new DataSetCsvIterator(arquivo,conversor_long,false,null);
 		RegressionStatistic statistica_teste = new RegressionStatistic(data_set);
 		int cont = 0;
 		
@@ -112,7 +113,7 @@ public class RegressionStatistic implements GenericStatistic
 	     System.out.print("R:");
 	     System.out.println(statistica_teste.getRegressao().getR());
 		
-		DataSetIterator data_set2 = new DataSetCsvIterator(arquivo,conversor_long,false,null);
+		DataSetIterate data_set2 = new DataSetCsvIterator(arquivo,conversor_long,false,null);
 		while(!data_set2.isEmpty())
 		{
 			cont++;

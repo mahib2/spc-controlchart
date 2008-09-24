@@ -3,21 +3,21 @@ import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 
-import math.constants.Cn;
 
+import constants.Cn;
 import controlcharts.GenericChartLimits;
 import controlcharts.StandardDeviationChartLimits;
 
 import statistic.AverageStatistic;
 import statistic.GenericStatistic;
 import statistic.StandardDeviationStatistic;
+import types.DataConverter;
+import types.DoubleDataConverter;
 
 import data.DataSetCsvIterator;
 import data.DataSetException;
 import data.DataSetItem;
-import data.DataSetIterator;
-import data.types.DataConverter;
-import data.types.DoubleDataConverter;
+import data.DataSetIterate;
 
 public class TesteTacio {
 
@@ -37,7 +37,7 @@ public class TesteTacio {
         }
         
         DataConverter conversor_long = new DoubleDataConverter();
-        DataSetIterator data_set = new DataSetCsvIterator(arquivo,conversor_long,false,null);
+        DataSetIterate data_set = new DataSetCsvIterator(arquivo,conversor_long,false,null);
         GenericChartLimits limites_controle = null;
         while(!data_set.isEmpty())
         {

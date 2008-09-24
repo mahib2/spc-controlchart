@@ -1,4 +1,4 @@
-package data.types;
+package types;
 
 public interface DataConverter 
 {

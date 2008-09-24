@@ -3,7 +3,8 @@ package controlcharts;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import math.constants.Cn;
+import constants.Cn;
+
 
 import statistic.AverageStatistic;
 import statistic.StandardDeviationStatistic;
