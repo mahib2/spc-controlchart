@@ -17,27 +17,49 @@ import data.DataSetIterate;
 
 public class CusumStatistic implements GenericStatistic{
 
-	public Double generateStatistic(ArrayList<DataSetItem> sample) {
-		// TODO Auto-generated method stub
-		int tamanho = sample.size();
-		double[] array = new double[tamanho];
-		for(int cont=0;cont<tamanho;cont++)
-		{
-			DataSetItem sample_part = sample.get(cont);
-			
-			array[cont] = sample_part.getY();			
-		}
-
-		if(sample==null)
-		{
-			return null;
-		}		
-
-		Median mediana = new Median();
-		Double retorno = mediana.evaluate(array);
-		double teste = mediana.getQuantile();
-		return retorno;		
+	private boolean comportamento;
+	private Double maximo = 0.0;
+	
+	public CusumStatistic(boolean tipo_comportamento)
+	{
+		this.comportamento = tipo_comportamento;
 	}
+	
+	private Double ci_anterior = 0.0;
+	
+	public Double generateStatistic(ArrayList<DataSetItem> sample) 
+	{
+		Double retorno = 0.0;
+		Double xi =0.0;
+		if(sample.size()>0)
+		{
+			if(this.comportamento)
+			{
+				xi = sample.get(0).getY()+this.ci_anterior;
+				//TODO COLOCAR O MI+k na magnitude
+				Double magnitude = 0.0;
+				retorno = xi-magnitude;				
+			}
+			else
+			{
+				xi = sample.get(0).getY()+this.ci_anterior;
+				//TODO COLOCAR O MI-k na magnitude
+				Double magnitude = 0.0;
+				retorno = magnitude-xi;	
+			}
+			
+		}
+		
+		if(retorno>this.maximo)
+		{
+			this.maximo = retorno;
+		}
+		
+		this.ci_anterior = this.maximo;
+		return this.maximo;		
+	}
+	
+	
 	public static void main(String[] args) throws DataSetException 
 	{
 		JFileChooser chooser = new JFileChooser();
