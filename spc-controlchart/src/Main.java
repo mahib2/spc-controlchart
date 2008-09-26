@@ -301,7 +301,7 @@ private void control_charMedianActionPerformed(java.awt.event.ActionEvent evt) {
 
 private void cusumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cusumActionPerformed
     // TODO add your handling code here:
-	CusumStatistic statistic = new CusumStatistic();
+	CusumStatistic statistic = new CusumStatistic(true);
 	//mudar
 	RegressionChartLimits limites = null; 
 	File arquivo = OpenActionPerformed(evt);
