@@ -2,6 +2,7 @@ package statistic;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JFileChooser;
 
@@ -19,6 +20,9 @@ public class CusumStatistic implements GenericStatistic{
 
 	private boolean comportamento;
 	private Double maximo = 0.0;
+	private static ArrayList<ArrayList<DataSetItem>> data;
+	private static Integer sample_size;
+	
 	
 	public CusumStatistic(boolean tipo_comportamento)
 	{
@@ -36,8 +40,9 @@ public class CusumStatistic implements GenericStatistic{
 			if(this.comportamento)
 			{
 				xi = sample.get(0).getY()+this.ci_anterior;
-				//TODO COLOCAR O MI+k na magnitude
+				//TODO COLOCAR O MI+k na magnitude				
 				Double magnitude = 0.0;
+				magnitude = this.getPositiveMagnitude(sample);
 				retorno = xi-magnitude;				
 			}
 			else
@@ -45,9 +50,9 @@ public class CusumStatistic implements GenericStatistic{
 				xi = sample.get(0).getY()+this.ci_anterior;
 				//TODO COLOCAR O MI-k na magnitude
 				Double magnitude = 0.0;
+				magnitude = this.getNegativeMagnitude(sample);
 				retorno = magnitude-xi;	
-			}
-			
+			}			
 		}
 		
 		if(retorno>this.maximo)
@@ -59,6 +64,72 @@ public class CusumStatistic implements GenericStatistic{
 		return this.maximo;		
 	}
 	
+	public Double getPositiveMagnitude(ArrayList<DataSetItem> sample)
+	{
+		Double desvio = this.getStandardDeviation(this);
+		Double magnitude = this.getK(sample);
+		Double positiveMagnitude = desvio + magnitude;
+		return positiveMagnitude;
+	}
+	
+	public Double getNegativeMagnitude(ArrayList<DataSetItem> sample)
+	{
+		Double desvio = this.getStandardDeviation(this);
+		Double magnitude = this.getK(sample);
+		Double positiveMagnitude = desvio - magnitude;
+		return positiveMagnitude;
+	}
+
+	public Double getK(ArrayList<DataSetItem> sample)
+	{
+		StandardDeviationStatistic statistic = new StandardDeviationStatistic(false);
+		Double desvio = this.getStandardDeviation(statistic);
+		Double K = (5 * desvio);
+		System.out.println("Valor de K: "+K);
+		return K;
+	}
+
+	public Double getMean(GenericStatistic statistic) 
+	{	
+
+		ArrayList<DataSetItem> dados_para_media = new ArrayList<DataSetItem>(this.data.size());
+		for(Iterator<ArrayList<DataSetItem>> it = this.data.iterator();it.hasNext();)
+		{
+			ArrayList<DataSetItem> amostra = it.next();
+			dados_para_media.add(amostra.get(0));
+		}
+		AverageStatistic calculador_media = new AverageStatistic();
+		Double retorno = calculador_media.generateStatistic(dados_para_media);
+		System.out.println(retorno);
+		return retorno;
+	}
+
+	public Double getStandardDeviation(GenericStatistic statistic) 
+	{			
+		ArrayList<DataSetItem> dados_para_desvio = new ArrayList<DataSetItem>(this.data.size());
+		for(Iterator<ArrayList<DataSetItem>> it = this.data.iterator();it.hasNext();)
+		{
+			ArrayList<DataSetItem> amostra = it.next();
+			dados_para_desvio.add(amostra.get(0));
+		}
+		StandardDeviationStatistic calculador_desvio = new StandardDeviationStatistic(true);
+		Double retorno = calculador_desvio.generateStatistic(dados_para_desvio);
+		System.out.println("Desvio padrão: "+retorno);
+		return retorno;
+	}
+
+	public static void addData(ArrayList<DataSetItem> new_data) 
+	{
+		data.add(new_data);
+	}
+
+	protected void init(int size)
+	{
+		sample_size = size;
+		data = new ArrayList<ArrayList<DataSetItem>>(size);
+	}
+
+
 	
 	public static void main(String[] args) throws DataSetException 
 	{
@@ -68,12 +139,13 @@ public class CusumStatistic implements GenericStatistic{
 
 		if(arquivo==null)
 		{
-			System.out.println("Arquivo null");;
+			System.out.println("Arquivo null");
 		}
 		DataConverter conversor_long = new DoubleDataConverter();
 		DataSetIterate data_set = new DataSetCsvIterator(arquivo,conversor_long,false,null);
 		int cont = 0;
-
+		int tamanho = data_set.tamanho();
+		
 		while(!data_set.isEmpty())
 		{
 			cont++;
