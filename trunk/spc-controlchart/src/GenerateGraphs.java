@@ -25,13 +25,15 @@ public class GenerateGraphs {
 		if(statistic instanceof RegressionStatistic)
 		{
 			chart = ChartFactory.createLineChart("Gráfico de Controle","Amostras","Estatística",LineChart.dataLineChart_regression((RegressionStatistic)statistic, arquivo,(RegressionChartLimits)limites),PlotOrientation.VERTICAL,true, true, false);
+			ConfigureChart.alterarConfiguracaoGrafico(chart);
 		}
 		else
 		{
 			chart = ChartFactory.createLineChart("Gráfico de Controle","Amostras","Estatística",LineChart.dataLineChart(statistic, arquivo,limites),PlotOrientation.VERTICAL,true, true, false);
+			ConfigureChart.alterarConfiguracaoGrafico(chart);	
 		}
 		
-		ConfigureChart.alterarConfiguracaoGrafico(chart);					
+						
 		return chart;	
 	}
 	
