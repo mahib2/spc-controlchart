@@ -11,6 +11,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+O"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Open"/>
               </Properties>
               <Events>
@@ -19,6 +22,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+X"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Exit"/>
               </Properties>
               <Events>
@@ -29,12 +35,12 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Statistic"/>
+            <Property name="text" type="java.lang.String" value="Estat&#xed;stica"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="basic_statistic">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Basic Statistic"/>
+                <Property name="text" type="java.lang.String" value="Estat&#xed;stica B&#xe1;sica"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BasicStatisticActionPerformed"/>
@@ -42,7 +48,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="normality_test">
               <Properties>
-                <Property name="label" type="java.lang.String" value="Normality Test"/>
+                <Property name="text" type="java.lang.String" value="Teste de Normalidade"/>
               </Properties>
               <AccessibilityProperties>
                 <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="item"/>
@@ -50,7 +56,7 @@
             </MenuItem>
             <Menu class="javax.swing.JMenu" name="control_chart">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Control Chart"/>
+                <Property name="text" type="java.lang.String" value="Gr&#xe1;ficos de Controle"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="control_chartActionPerformed"/>
@@ -58,7 +64,7 @@
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="control_charMedian">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Median"/>
+                    <Property name="text" type="java.lang.String" value="Mediana"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="control_charMedianActionPerformed"/>
@@ -66,7 +72,7 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="regression">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Regression"/>
+                    <Property name="text" type="java.lang.String" value="Regress&#xe3;o"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="regressionActionPerformed"/>
@@ -74,7 +80,7 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="cusum">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Cumulative Sum"/>
+                    <Property name="text" type="java.lang.String" value="CUSUM"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cusumActionPerformed"/>
@@ -82,7 +88,7 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="xmr">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Individual Moving Range"/>
+                    <Property name="text" type="java.lang.String" value="XmR"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="xmrActionPerformed"/>
@@ -90,6 +96,24 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Ajuda"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+H"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Sobre o SISCEQ"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem3ActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>
