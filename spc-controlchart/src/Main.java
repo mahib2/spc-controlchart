@@ -266,7 +266,7 @@ private File OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:ev
 
 private void regressionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regressionActionPerformed
     // TODO add your handling code here:
-  	RegressionStatistic statistic = new RegressionStatistic();
+  	    RegressionStatistic statistic = new RegressionStatistic();
 		RegressionChartLimits limites = null; 
 		File arquivo = OpenActionPerformed(evt);
 		ChartFrame frame;
