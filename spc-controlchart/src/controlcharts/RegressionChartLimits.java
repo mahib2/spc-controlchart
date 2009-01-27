@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.commons.math.MathException;
 import org.apache.commons.math.stat.regression.SimpleRegression;
+import org.apache.commons.math.util.MathUtils;
 
 import data.DataSetException;
 import data.DataSetItem;
@@ -75,29 +76,27 @@ public class RegressionChartLimits implements GenericChartLimits
 
 	public Double calculateCentralLine(Double x) 
 	{
-		return this.regressao.predict(x);
-	}
-	
-	
+		return MathUtils.round(this.regressao.predict(x),2);
+	}	
 
 	public Double calculateLowerAdvertenceLimit(Double x) 
 	{
-		return this.regressao.predict(x)-(1.5*this.erro_padrao);
+		return MathUtils.round(this.regressao.predict(x)-(1.5*this.erro_padrao),2);
 	}
 
 	public Double calculateLowerControlLimit(Double x) 
 	{
-		return this.regressao.predict(x)-(3.0*this.erro_padrao);
+		return MathUtils.round(this.regressao.predict(x)-(3.0*this.erro_padrao),2);
 	}
 
 	public Double calculateUpperAdvertenceLimit(Double x) 
 	{
-		return this.regressao.predict(x)+(1.5*this.erro_padrao);
+		return MathUtils.round(this.regressao.predict(x)+(1.5*this.erro_padrao),2);
 	}
 
 	public Double calculateUpperControlLimit(Double x) 
 	{
-		return this.regressao.predict(x)+(3.0*this.erro_padrao);
+		return MathUtils.round(this.regressao.predict(x)+(3.0*this.erro_padrao),2);
 	}
 	
 	/**
