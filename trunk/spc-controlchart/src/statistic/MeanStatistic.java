@@ -54,7 +54,6 @@ public class MeanStatistic implements GenericStatistic {
 
 		while(!data_set.isEmpty())
 		{
-			tamanho = data_set.tamanho();
 			cont++;
 			ArrayList<DataSetItem> item = data_set.next();
 			GenericStatistic statistica_teste = new MeanStatistic();
