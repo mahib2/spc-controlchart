@@ -1,5 +1,6 @@
 package statistic;
 
+import java.awt.LinearGradientPaint;
 import java.io.File;
 import java.util.ArrayList;
 

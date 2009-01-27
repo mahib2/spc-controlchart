@@ -144,7 +144,7 @@ public class CusumStatistic implements GenericStatistic{
 		DataConverter conversor_long = new DoubleDataConverter();
 		DataSetIterate data_set = new DataSetCsvIterator(arquivo,conversor_long,false,null);
 		int cont = 0;
-		int tamanho = data_set.tamanho();
+		
 		
 		while(!data_set.isEmpty())
 		{
