@@ -13,9 +13,14 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+
+import controlcharts.AmplitudeChartLimits;
+import controlcharts.AverageChartLimits;
 import controlcharts.GenericChartLimits;
 import controlcharts.MedianChartLimits;
 import controlcharts.RegressionChartLimits;
+
+import math.CalculateStatisticBasic;
 
 import org.jfree.chart.ChartFrame;
 
@@ -27,6 +32,8 @@ import data.DataSetIterate;
 import java.io.File;
 
 
+import statistic.AmplitudeStatistic;
+import statistic.AverageStatistic;
 import statistic.CusumStatistic;
 import statistic.GenericStatistic;
 import statistic.MedianStatistic;
@@ -36,12 +43,18 @@ import types.DataConverter;
 import types.DoubleDataConverter;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.EventListener;
+import java.util.Locale;
 
 /**
  *
@@ -63,6 +76,9 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         jSeparator2 = new javax.swing.JSeparator();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -71,10 +87,28 @@ public class Main extends javax.swing.JFrame {
         basic_statistic = new javax.swing.JMenuItem();
         normality_test = new javax.swing.JMenuItem();
         control_chart = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        jMenu7 = new javax.swing.JMenu();
+        control_chartAverage = new javax.swing.JMenuItem();
         control_charMedian = new javax.swing.JMenuItem();
+        jMenu9 = new javax.swing.JMenu();
+        control_chartR = new javax.swing.JMenuItem();
+        control_chartS = new javax.swing.JMenuItem();
+        control_chartS2 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        control_chartp = new javax.swing.JMenuItem();
+        control_chartnp = new javax.swing.JMenuItem();
+        control_chartc = new javax.swing.JMenuItem();
+        control_chartu = new javax.swing.JMenuItem();
+        jMenu8 = new javax.swing.JMenu();
+        control_chartMR = new javax.swing.JMenuItem();
+        control_chartXbar = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
         regression = new javax.swing.JMenuItem();
         cusum = new javax.swing.JMenuItem();
-        xmr = new javax.swing.JMenuItem();
+        ewma = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        help = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Controle Estatístico de Qualidade - CEQ");
@@ -97,8 +131,22 @@ public class Main extends javax.swing.JFrame {
         getContentPane().add(jSeparator2);
         jSeparator2.setBounds(0, 620, 1000, 30);
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("   ------------------------Bem Vindo ao SISCEQ vs 1.0-Pressione F1 para Ajuda---------------------------------------\n");
+        jTextArea1.setSelectionColor(new java.awt.Color(204, 204, 204));
+        jScrollPane1.setViewportView(jTextArea1);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(0, 0, 980, 360);
+
+        jLabel1.setText("   ------------------------Bem Vindo ao SISCEQ vs 1.0---------------------------------------- ");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(30, 20, 400, 30);
+
         jMenu1.setText("Arquivo");
 
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem1.setText("Open");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,6 +155,7 @@ public class Main extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem2.setText("Exit");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,9 +166,9 @@ public class Main extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Statistic");
+        jMenu2.setText("Estatística");
 
-        basic_statistic.setText("Basic Statistic");
+        basic_statistic.setText("Estatística Básica");
         basic_statistic.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BasicStatisticActionPerformed(evt);
@@ -127,52 +176,169 @@ public class Main extends javax.swing.JFrame {
         });
         jMenu2.add(basic_statistic);
 
-        normality_test.setLabel("Normality Test");
+        normality_test.setText("Teste de Normalidade");
         jMenu2.add(normality_test);
         normality_test.getAccessibleContext().setAccessibleName("item");
 
-        control_chart.setText("Control Chart");
+        control_chart.setText("Gráficos de Controle");
         control_chart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 control_chartActionPerformed(evt);
             }
         });
 
-        control_charMedian.setText("Median");
+        jMenu4.setText("Variáveis");
+
+        jMenu7.setText("Nível");
+
+        control_chartAverage.setText("Média");
+        control_chartAverage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                control_charAverageActionPerformed(evt);
+            }
+        });
+        jMenu7.add(control_chartAverage);
+
+        control_charMedian.setText("Mediana");
         control_charMedian.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 control_charMedianActionPerformed(evt);
             }
         });
-        control_chart.add(control_charMedian);
+        jMenu7.add(control_charMedian);
 
-        regression.setText("Regression");
+        jMenu4.add(jMenu7);
+
+        jMenu9.setText("Dispersão");
+
+        control_chartR.setText("Amplitude");
+        control_chartR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                control_chartRActionPerformed(evt);
+            }
+        });
+        jMenu9.add(control_chartR);
+
+        control_chartS.setText("Desvio Padrão");
+        control_chartS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                control_chartSActionPerformed(evt);
+            }
+        });
+        jMenu9.add(control_chartS);
+
+        control_chartS2.setText("Variância");
+        control_chartS2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                control_chartS2ActionPerformed(evt);
+            }
+        });
+        jMenu9.add(control_chartS2);
+
+        jMenu4.add(jMenu9);
+
+        control_chart.add(jMenu4);
+
+        jMenu6.setText("Atributos");
+
+        control_chartp.setText("Gráfico p");
+        control_chartp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                control_chartpActionPerformed(evt);
+            }
+        });
+        jMenu6.add(control_chartp);
+
+        control_chartnp.setText("Gráfico np");
+        control_chartnp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                control_chartnpActionPerformed(evt);
+            }
+        });
+        jMenu6.add(control_chartnp);
+
+        control_chartc.setText("Gráfico c");
+        control_chartc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                control_chartcActionPerformed(evt);
+            }
+        });
+        jMenu6.add(control_chartc);
+
+        control_chartu.setText("Gráfico u");
+        control_chartu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                control_chartuActionPerformed(evt);
+            }
+        });
+        jMenu6.add(control_chartu);
+
+        control_chart.add(jMenu6);
+
+        jMenu8.setText("Observações Individuais");
+
+        control_chartMR.setText("MR");
+        control_chartMR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                control_chartMRActionPerformed(evt);
+            }
+        });
+        jMenu8.add(control_chartMR);
+
+        control_chartXbar.setText("Xbar");
+        control_chartXbar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                control_chartXbarActionPerformed(evt);
+            }
+        });
+        jMenu8.add(control_chartXbar);
+
+        control_chart.add(jMenu8);
+
+        jMenu5.setText("Outros Tipos");
+
+        regression.setText("Regressão");
         regression.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 regressionActionPerformed(evt);
             }
         });
-        control_chart.add(regression);
+        jMenu5.add(regression);
 
-        cusum.setText("Cumulative Sum");
+        cusum.setText("CUSUM");
         cusum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cusumActionPerformed(evt);
             }
         });
-        control_chart.add(cusum);
+        jMenu5.add(cusum);
 
-        xmr.setText("Individual Moving Range");
-        xmr.addActionListener(new java.awt.event.ActionListener() {
+        ewma.setText("EWMA");
+        ewma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                xmrActionPerformed(evt);
+                ewmaActionPerformed(evt);
             }
         });
-        control_chart.add(xmr);
+        jMenu5.add(ewma);
+
+        control_chart.add(jMenu5);
 
         jMenu2.add(control_chart);
 
         jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Ajuda");
+
+        help.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        help.setText("Sobre o SISCEQ");
+        help.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpActionPerformed(evt);
+            }
+        });
+        jMenu3.add(help);
+
+        jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
 
@@ -245,8 +411,31 @@ private void BasicStatisticActionPerformed(java.awt.event.ActionEvent evt) {//GE
 	DataSetIterate data_set = new DataSetCsvIterator(arquivo,conversor_long,false,null);
 	BasicStatistic interface_statistic_basics;
 	try {
-		interface_statistic_basics = new BasicStatistic(data_set);
-		interface_statistic_basics.setVisible(true);
+		CalculateStatisticBasic descritive = new CalculateStatisticBasic(data_set);
+		String amostras = Double.toString(descritive.getQtdAmostras());
+		String minimo = Double.toString(descritive.getMin());
+		String maximo = Double.toString(descritive.getMax());
+		String desvio_padrao = Double.toString(descritive.getDesvio());
+		String media_amostras = Double.toString(descritive.getQtdAmostras());
+		String variancia_amostras = Double.toString(descritive.getVariance());
+		
+		String amostras_text= new String("\n Quantidade de Amostras Analisadas: "+amostras);
+		String minimo_text= new String("\n Valor Mínimo: "+minimo);
+		String maximo_text= new String("\n Valor Mínimo: "+maximo);
+		String desvio_text= new String("\n Desvio Padrão: "+desvio_padrao);
+		String media_text= new String("\n Média: "+media_amostras);
+		String variancia_text= new String("\n Variância: "+variancia_amostras);
+		
+		this.jTextArea1.append("----------------------------------------------------------Estatística Básica----------------------------------------------------------");
+		this.jTextArea1.append(amostras_text);
+		this.jTextArea1.append(minimo_text);
+		this.jTextArea1.append(maximo_text);
+		this.jTextArea1.append(desvio_text);
+		this.jTextArea1.append(media_text);
+		this.jTextArea1.append(variancia_text);
+		
+//		interface_statistic_basics = new BasicStatistic(data_set);
+//		interface_statistic_basics.setVisible(true);
 	} catch (DataSetException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -299,6 +488,27 @@ private void control_charMedianActionPerformed(java.awt.event.ActionEvent evt) {
     control_chart.show(true);   
 }//GEN-LAST:event_control_charMedianActionPerformed
 
+private void control_charAverageActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+    // TODO add your handling code here:
+	this.setVisible(true);
+	GenericStatistic statistic = new AverageStatistic();
+	GenericChartLimits limites = new AverageChartLimits(); 
+	File arquivo = abrirArquivo();
+	ChartFrame frame;		
+	try 
+	{
+		frame = new ChartFrame("Gerando Gráfico", GenerateGraphs.lineChart(statistic, arquivo,limites));
+		frame.pack();
+		frame.setVisible(true);                        
+		Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();                          
+		frame.setLocation(200,200);                        
+	} catch (DataSetException e) {
+		// TODO tratar essa excessão
+		e.printStackTrace();
+	}	
+
+}                                                  
+
 private void cusumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cusumActionPerformed
     // TODO add your handling code here:
 	CusumStatistic statistic = new CusumStatistic(true);
@@ -321,9 +531,92 @@ private void cusumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
 	}
 }//GEN-LAST:event_cusumActionPerformed
 
-private void xmrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xmrActionPerformed
+private void control_chartMRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_control_chartMRActionPerformed
     // TODO add your handling code here:
-}//GEN-LAST:event_xmrActionPerformed
+}//GEN-LAST:event_control_chartMRActionPerformed
+
+private void control_chartRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_control_chartRActionPerformed
+    // TODO add your handling code here:
+	this.setVisible(true);
+	GenericStatistic statistic = new AmplitudeStatistic();
+	GenericChartLimits limites = new AmplitudeChartLimits(); 
+	File arquivo = abrirArquivo();
+	ChartFrame frame;		
+	try 
+	{
+		frame = new ChartFrame("Gerando Gráfico", GenerateGraphs.lineChart(statistic, arquivo,limites));
+		frame.pack();
+		frame.setVisible(true);                        
+		Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();                          
+		frame.setLocation(200,200);                        
+	} catch (DataSetException e) {
+		// TODO tratar essa excessão
+		e.printStackTrace();
+	}	
+
+}//GEN-LAST:event_control_chartRActionPerformed
+
+private void control_chartSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_control_chartSActionPerformed
+    // TODO add your handling code here:
+	this.setVisible(true);
+	GenericStatistic statistic = new StandardDeviationStatistic(true);
+	GenericChartLimits limites = new StandardDeviationChartLimits(); 
+	File arquivo = abrirArquivo();
+	ChartFrame frame;		
+	try 
+	{
+		frame = new ChartFrame("Gerando Gráfico", GenerateGraphs.lineChart(statistic, arquivo,limites));
+		frame.pack();
+		frame.setVisible(true);                        
+		Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();                          
+		frame.setLocation(200,200);                        
+	} catch (DataSetException e) {
+		// TODO tratar essa excessão
+		e.printStackTrace();
+	}
+}//GEN-LAST:event_control_chartSActionPerformed
+
+private void control_chartS2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_control_chartS2ActionPerformed
+    // TODO add your handling code here:
+	//FALTA IMPLEMENTAR
+}//GEN-LAST:event_control_chartS2ActionPerformed
+
+private void control_chartpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_control_chartpActionPerformed
+    // TODO add your handling code here:
+	//recuperar o valor
+	//calcular a média de p
+	//calcular os limtes
+	
+}//GEN-LAST:event_control_chartpActionPerformed
+
+private void control_chartnpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_control_chartnpActionPerformed
+    // TODO add your handling code here:
+}//GEN-LAST:event_control_chartnpActionPerformed
+
+private void control_chartcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_control_chartcActionPerformed
+    // TODO add your handling code here:
+}//GEN-LAST:event_control_chartcActionPerformed
+
+private void control_chartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_control_chartuActionPerformed
+    // TODO add your handling code here:
+}//GEN-LAST:event_control_chartuActionPerformed
+
+private void ewmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ewmaActionPerformed
+    // TODO add your handling code here:
+}//GEN-LAST:event_ewmaActionPerformed
+
+private void control_chartXbarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_control_chartXbarActionPerformed
+    // TODO add your handling code here:
+}//GEN-LAST:event_control_chartXbarActionPerformed
+
+private void helpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpActionPerformed
+	
+    // TODO add your handling code here:
+	this.setVisible(true);
+	Help ajuda = new Help(this);
+	ajuda.setVisible(true);
+	
+}//GEN-LAST:event_helpActionPerformed
 
 public static File abrirArquivo()
 {
@@ -354,16 +647,37 @@ public static void main(String args[]) {
     private javax.swing.JMenuItem basic_statistic;
     private javax.swing.JMenuItem control_charMedian;
     private javax.swing.JMenu control_chart;
+    private javax.swing.JMenuItem control_chartAverage;
+    private javax.swing.JMenuItem control_chartMR;
+    private javax.swing.JMenuItem control_chartR;
+    private javax.swing.JMenuItem control_chartS;
+    private javax.swing.JMenuItem control_chartS2;
+    private javax.swing.JMenuItem control_chartXbar;
+    private javax.swing.JMenuItem control_chartc;
+    private javax.swing.JMenuItem control_chartnp;
+    private javax.swing.JMenuItem control_chartp;
+    private javax.swing.JMenuItem control_chartu;
     private javax.swing.JMenuItem cusum;
+    private javax.swing.JMenuItem ewma;
+    private javax.swing.JMenuItem help;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JMenuItem normality_test;
     private javax.swing.JMenuItem regression;
-    private javax.swing.JMenuItem xmr;
     // End of variables declaration//GEN-END:variables
 
 }

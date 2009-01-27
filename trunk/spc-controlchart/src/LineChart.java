@@ -5,6 +5,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.apache.commons.math.MathException;
 import org.apache.commons.math.stat.regression.*;
+import org.apache.commons.math.util.MathUtils;
 import org.jfree.data.statistics.Regression;
 import org.jfree.data.time.Month;
 import org.jfree.data.time.TimeSeries;
@@ -154,10 +155,12 @@ public class LineChart {
 				}//fim-for
 			}//fim-if
 			dataset.addValue(y, series4,String.valueOf(x));
-
+//			System.out.println(MathUtils.round(limites_controle.calculateCentralLine(x),2));
+//			System.out.println(x);
 			Double lc = limites_controle.calculateCentralLine(x);
 			Double lsc = limites_controle.calculateUpperControlLimit(x);
 			Double lic = limites_controle.calculateLowerControlLimit(x);
+			System.out.println(lsc+" "+lic);
 			Double lia = limites_controle.calculateLowerAdvertenceLimit(x);
 			Double lsa = limites_controle.calculateUpperAdvertenceLimit(x);
 			dataset.addValue(lsc, series1, String.valueOf(x));
