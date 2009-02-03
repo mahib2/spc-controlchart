@@ -27,8 +27,14 @@ public class MedianStatistic implements GenericStatistic
 
 	public Double generateStatistic(ArrayList<DataSetItem> sample) 
 	{
-		//	ordena array
-
+		
+		
+		if(sample==null)
+		{
+			return null;
+		}
+		
+		//ordena array
 		int tamanho = sample.size();
 		double[] array = new double[tamanho];
 		for(int cont=0;cont<tamanho;cont++)
@@ -37,14 +43,8 @@ public class MedianStatistic implements GenericStatistic
 			array[cont] = sample_part.getY();			
 		}
 
-		if(sample==null)
-		{
-			return null;
-		}		
-
 		Median mediana = new Median();
 		Double retorno = mediana.evaluate(array);
-		double teste = mediana.getQuantile();
 		return retorno;		
 	}
 
