@@ -5,6 +5,7 @@
  */
 import java.awt.Dimension;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -12,6 +13,8 @@ import javax.swing.JOptionPane;
 import math.CalculateStatisticBasic;
 
 import org.jfree.chart.ChartFrame;
+
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import statistic.AmplitudeStatistic;
 import statistic.AverageStatistic;
@@ -506,6 +509,16 @@ private void cusumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
 		frame.setLocation(200,200);                
 		frame.pack();
 		frame.setVisible(true);
+		
+		ArrayList<Integer> n_plus = statistic1.getStored_Ns();
+		ArrayList<Integer> n_minus = statistic2.getStored_Ns();
+		
+		this.jTextArea1.setText("n" +"\t" +"ni" +"\t" +"ni-");
+		
+		for(int cont=0;cont<n_plus.size();cont++)
+		{
+			this.jTextArea1.append("\n"+(cont+1)+"\t"+n_plus.get(cont)+"\t"+n_minus.get(cont));
+		}
 	}
 	catch (DataSetException e) 
 	{
