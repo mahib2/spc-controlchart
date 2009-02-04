@@ -16,24 +16,33 @@ import statistic.StandardDeviationStatistic;
 
 import data.DataSetException;
 
-public class GenerateGraphs {
-//	Gráfico de Pizza com dados PieDataSet
+public class GenerateGraphs 
+{
+//	Gráficos de linha
 	
-	public static JFreeChart lineChart(GenericStatistic statistic, File arquivo, GenericChartLimits limites) throws DataSetException{
+	public static JFreeChart lineChart(GenericStatistic statistic, File arquivo, GenericChartLimits limites) throws DataSetException
+	{
 		//	create a chart...
 		JFreeChart chart;
 		if(statistic instanceof RegressionStatistic)
 		{
 			chart = ChartFactory.createLineChart("Gráfico de Controle","Amostras","Estatística",LineChart.dataLineChart_regression((RegressionStatistic)statistic, arquivo,(RegressionChartLimits)limites),PlotOrientation.VERTICAL,true, true, false);
-			ConfigureChart.alterarConfiguracaoGrafico(chart);
+			ConfigureChart.alterarConfiguracaoGraficoLinha(chart);
 		}
 		else
 		{
 			chart = ChartFactory.createLineChart("Gráfico de Controle","Amostras","Estatística",LineChart.dataLineChart(statistic, arquivo,limites),PlotOrientation.VERTICAL,true, true, false);
-			ConfigureChart.alterarConfiguracaoGrafico(chart);	
+			ConfigureChart.alterarConfiguracaoGraficoLinha(chart);	
 		}
-		
-						
+		return chart;	
+	}
+	
+	public static JFreeChart doubleLineChart(GenericStatistic statistic1,GenericStatistic statistic2, File arquivo, GenericChartLimits limites) throws DataSetException
+	{
+		//	create a chart...
+		JFreeChart chart;
+		chart = ChartFactory.createLineChart("Gráfico de Controle","Amostras","Estatísticas",LineChart.dataLineDoubleChart(statistic1,statistic2, arquivo,limites),PlotOrientation.VERTICAL,true, true, false);
+		ConfigureChart.alterarConfiguracaoGraficoLinhaDuplo(chart);
 		return chart;	
 	}
 	

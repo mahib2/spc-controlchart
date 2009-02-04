@@ -3,58 +3,33 @@
  *
  * Created on 5 de Abril de 2008, 01:46
  */
-import javax.swing.AbstractButton;
-import javax.swing.JFileChooser; 
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
+import java.awt.Dimension;
+import java.io.File;
 
-import controlcharts.AmplitudeChartLimits;
-import controlcharts.AverageChartLimits;
-import controlcharts.GenericChartLimits;
-import controlcharts.MedianChartLimits;
-import controlcharts.RegressionChartLimits;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import math.CalculateStatisticBasic;
 
 import org.jfree.chart.ChartFrame;
 
-import controlcharts.StandardDeviationChartLimits;
-import data.DataSetCsvIterator;
-import data.DataSetException;
-import data.DataSetIterate;
-
-import java.io.File;
-
-
 import statistic.AmplitudeStatistic;
 import statistic.AverageStatistic;
 import statistic.CusumStatistic;
 import statistic.GenericStatistic;
-import statistic.MedianStatistic;
 import statistic.RegressionStatistic;
 import statistic.StandardDeviationStatistic;
 import types.DataConverter;
 import types.DoubleDataConverter;
-
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.EventListener;
-import java.util.Locale;
+import controlcharts.AmplitudeChartLimits;
+import controlcharts.AverageChartLimits;
+import controlcharts.CusumChartLimits;
+import controlcharts.GenericChartLimits;
+import controlcharts.RegressionChartLimits;
+import controlcharts.StandardDeviationChartLimits;
+import data.DataSetCsvIterator;
+import data.DataSetException;
+import data.DataSetIterate;
 
 /**
  *
@@ -510,21 +485,34 @@ private void control_charAverageActionPerformed(java.awt.event.ActionEvent evt) 
 }                                                  
 
 private void cusumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cusumActionPerformed
-    // TODO add your handling code here:
-	CusumStatistic statistic = new CusumStatistic(true);
+	CusumChartLimits limites = null;
+	CusumStatistic statistic1 = null;
+	CusumStatistic statistic2 = null;
 	//mudar
-	RegressionChartLimits limites = null; 
+	
+	double k = 0.5;
+	//TODO mudar o k pra pegar da interface
+	
 	File arquivo = OpenActionPerformed(evt);
 	ChartFrame frame;
 	try 
 	{
-		frame = new ChartFrame("Gerando Gráfico", GenerateGraphs.lineChart(statistic, arquivo,limites));
-		Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();                          
+		limites = new CusumChartLimits();
+		statistic1 = new CusumStatistic(true,k,limites);
+		statistic2 = new CusumStatistic(false,k,limites);
+		frame = new ChartFrame("Gerando Gráfico", GenerateGraphs.doubleLineChart(statistic1,statistic2, arquivo,limites));
+		Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+		frame.setSize(screenSize);
 		frame.setLocation(200,200);                
 		frame.pack();
 		frame.setVisible(true);
 	}
 	catch (DataSetException e) 
+	{
+		e.printStackTrace();
+		JOptionPane.showMessageDialog(this, e.getMessage());
+	}
+	catch (Exception e) 
 	{
 		e.printStackTrace();
 		JOptionPane.showMessageDialog(this, e.getMessage());
