@@ -16,6 +16,7 @@ public class CusumStatistic implements GenericStatistic
 	private Double ci_previous = 0.0;
 	private Double standard_deviation;
 	private Double average;
+	private ArrayList<Integer> stored_Ns = new ArrayList<Integer>(50);
 	private CusumChartLimits chartLimits;
 	
 	/**
@@ -123,7 +124,31 @@ public class CusumStatistic implements GenericStatistic
 		
 		this.ci_previous = retorno.doubleValue();
 		
+		if(retorno.equals(0.0))
+		{
+			this.stored_Ns.add(0);
+		}
+		else
+		{
+			if(this.stored_Ns.size()<1)
+			{
+				this.stored_Ns.add(1);								
+			}
+			else
+			{
+				Integer last_n = this.stored_Ns.get(this.stored_Ns.size()-1);
+				this.stored_Ns.add(last_n+1);
+			}
+			
+		}
+		
 		return retorno;		
+	}
+
+
+	public ArrayList<Integer> getStored_Ns() 
+	{
+		return stored_Ns;
 	}
 	
 	/*
