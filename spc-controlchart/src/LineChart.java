@@ -119,35 +119,41 @@ public class LineChart {
 		}
 
 		DataConverter conversor_long = new DoubleDataConverter();
-		DataSetIterate data_set = new DataSetCsvIterator(arquivo,conversor_long,false,null);
-		int cont = 0;
+		DataSetIterate data_set1 = new DataSetCsvIterator(arquivo,conversor_long,false,null);
+		//int cont = 0;
 
 		Integer tamanho_amostra = null;
-		while(!data_set.isEmpty())
+		while(!data_set1.isEmpty())
 		{
-			cont++;
-			ArrayList<DataSetItem> item = data_set.next();
-			GenericStatistic statistica_teste = statistic1;
-			GenericStatistic statistica_teste2 = statistic2;
-			Number estatistica1 = statistica_teste.generateStatistic(item);
-			Number estatistica2 = statistica_teste2.generateStatistic(item);
+			//cont++;
+			ArrayList<DataSetItem> item = data_set1.next();
 			if(tamanho_amostra==null)
 			{
 				tamanho_amostra = item.size();
 				limites_controle.setSampleSize(tamanho_amostra);
 			}
 			limites_controle.addData(item);
-			dataset.addValue(estatistica1, series2,String.valueOf(cont));
-			dataset.addValue(estatistica2, series3,String.valueOf(cont));
 		}
-
-
-
-		for(int cont2=1;cont2<=cont;cont2++)
+		
+		DataSetIterate data_set2 = new DataSetCsvIterator(arquivo,conversor_long,false,null);
+		int cont2 = 1;
+		while(!data_set2.isEmpty())
 		{
+			ArrayList<DataSetItem> item = data_set2.next();
+			
 			Double lsc = limites_controle.calculateUpperControlLimit(new Double(cont2));
 			dataset.addValue(lsc, series1, String.valueOf(cont2));
+			
+			GenericStatistic statistica_teste = statistic1;
+			GenericStatistic statistica_teste2 = statistic2;
+			Number estatistica1 = statistica_teste.generateStatistic(item);
+			Number estatistica2 = statistica_teste2.generateStatistic(item);
+			
+			dataset.addValue(estatistica1, series2,String.valueOf(cont2));
+			dataset.addValue(estatistica2, series3,String.valueOf(cont2));
+			cont2++;
 		}
+
 		return dataset;	
 	}
 	

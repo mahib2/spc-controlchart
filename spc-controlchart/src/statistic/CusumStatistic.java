@@ -1,39 +1,54 @@
 package statistic;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
 
-import javax.swing.JFileChooser;
-
-import org.apache.commons.math.stat.descriptive.rank.Median;
-
-import types.DataConverter;
-import types.DoubleDataConverter;
 import types.TypeUtilities;
-
-import data.DataSetCsvIterator;
-import data.DataSetException;
+import controlcharts.CusumChartLimits;
 import data.DataSetItem;
-import data.DataSetIterate;
 
-public class CusumStatistic implements GenericStatistic{
+public class CusumStatistic implements GenericStatistic
+{
 
 	private boolean comportamento;
-	private Double k;
-	private static ArrayList<ArrayList<DataSetItem>> data;
-	private static Integer sample_size;
-	private Double ci_anterior = 0.0;
-	private double standard_deviation;
-	private double average;
+	private Double k_big;
+	private Double k_small;
+	private Integer total_samples;
+	private Double ci_previous = 0.0;
+	private Double standard_deviation;
+	private Double average;
+	private CusumChartLimits chartLimits;
 	
+	/**
+	 * Construtor 1 - Caso já tenha todos os valores em mãos
+	 * 
+	 * @param tipo_comportamento
+	 * @param k
+	 * @param standard_deviation
+	 * @param average
+	 * @param total_samples
+	 */
 	
-	public CusumStatistic(boolean tipo_comportamento, double k, double standard_deviation, double average)
+	public CusumStatistic(boolean tipo_comportamento, double k_small, double standard_deviation, double average, int total_samples)
 	{
 		this.comportamento = tipo_comportamento;
 		this.standard_deviation = standard_deviation;
 		this.average = average;
-		//TODO ver se nao tem que char o init em algum momento
+		this.total_samples = total_samples;
+		this.k_small = k_small;
+	}
+	
+	
+	/**
+	 * Construtor 2 - Caso tenha o objeto dos limites de controle, ele possui as informações que esta classe necessita
+	 * @param tipo_comportamento
+	 * @param k_small
+	 * @param chartLimits
+	 */
+	public CusumStatistic(boolean tipo_comportamento,Double k_small, CusumChartLimits chartLimits)
+	{
+		this.comportamento = tipo_comportamento;
+		this.chartLimits = chartLimits;
+		this.k_small = k_small;
 	}
 	
 	private double calculate_k(double k, double standard_deviation, double numero_amostras)
@@ -44,9 +59,29 @@ public class CusumStatistic implements GenericStatistic{
 	public Double generateStatistic(ArrayList<DataSetItem> sample) 
 	{
 		//TODO acho que falta so o N+/- aqui.
-		if(this.k==null)
+		/**
+		 * Ve se o K já foi calculado..
+		 * se não foi entra no if
+		 */
+		if(this.k_big==null)
 		{
-			this.k = this.calculate_k(this.k, this.standard_deviation, CusumStatistic.sample_size);
+			/***
+			 * Ainda não foi calculado..
+			 * então ver se já tem o desvio padrao
+			 */
+			if(this.standard_deviation==null)
+			{
+				/**
+				 * Se não tem é por foi instanciado com o construtor que fornece os limites de controle
+				 * pegar as informações dele pra calcular o k
+				 * 
+				 */
+				this.standard_deviation = this.chartLimits.getStandardDeviation();
+				this.average = this.chartLimits.getTotalAverage();
+				this.total_samples = this.chartLimits.getSample_size();
+			}
+			
+			this.k_big = this.calculate_k(this.k_small, this.standard_deviation, this.total_samples);
 		}
 		
 		if(sample==null)
@@ -72,13 +107,13 @@ public class CusumStatistic implements GenericStatistic{
 			double ci;
 			if(this.comportamento)
 			{
-				ci = media_amostra - (this.average+this.k);
+				ci = media_amostra - (this.average+this.k_big);
 			}
 			else
 			{
-				ci = (this.average-this.k) - media_amostra;
+				ci = (this.average-this.k_big) - media_amostra;
 			}
-			retorno = ci+ this.ci_anterior;
+			retorno = ci+ this.ci_previous;
 		}
 		
 		if(retorno<0.0)
@@ -86,7 +121,7 @@ public class CusumStatistic implements GenericStatistic{
 			retorno = 0.0;
 		}
 		
-		this.ci_anterior = retorno.doubleValue();
+		this.ci_previous = retorno.doubleValue();
 		
 		return retorno;		
 	}
@@ -145,21 +180,8 @@ public class CusumStatistic implements GenericStatistic{
 		System.out.println("Desvio padrão: "+retorno);
 		return retorno;
 	}
-	*/
-
-	public static void addData(ArrayList<DataSetItem> new_data) 
-	{
-		data.add(new_data);
-	}
-
-	protected void init(int size)
-	{
-		sample_size = size;
-		data = new ArrayList<ArrayList<DataSetItem>>(size);
-	}
-
-
 	
+
 	public static void main(String[] args) throws DataSetException 
 	{
 		JFileChooser chooser = new JFileChooser();
@@ -185,5 +207,5 @@ public class CusumStatistic implements GenericStatistic{
 
 		}
 
-	}
+	}*/
 }
