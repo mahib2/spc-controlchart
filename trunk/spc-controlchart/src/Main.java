@@ -603,6 +603,9 @@ private void control_chartuActionPerformed(java.awt.event.ActionEvent evt) {//GE
 
 private void ewmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ewmaActionPerformed
     // TODO add your handling code here:
+	SelectConstanteEwma control_chartMedia = new SelectConstanteEwma(this);		
+	control_chartMedia.show(true);
+	
 }//GEN-LAST:event_ewmaActionPerformed
 
 private void control_chartXbarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_control_chartXbarActionPerformed
