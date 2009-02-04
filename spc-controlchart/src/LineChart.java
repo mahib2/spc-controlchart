@@ -92,7 +92,65 @@ public class LineChart {
 		}
 		return dataset;	
 	}
+	
+	
+	public static DefaultCategoryDataset dataLineDoubleChart(GenericStatistic statistic1, GenericStatistic statistic2 , File arquivo, GenericChartLimits limites_controle) throws DataSetException
+	{
+//		define os nomes das linhas
+		//TODO ver se esses nomes não poderão variar
+		String series1 = "LSC";
+		String series2 = "Ci+";
+		String series3 = "Ci-";
+		
+		// define o eixo x
+		/*String type1 = "1";
+		String type2 = "2";
+		String type3 = "3";
+		String type4 = "4";
+		String type5 = "5";*/
 
+		// create the dataset...
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+
+		if(arquivo==null)
+		{
+			return null;
+		}
+
+		DataConverter conversor_long = new DoubleDataConverter();
+		DataSetIterate data_set = new DataSetCsvIterator(arquivo,conversor_long,false,null);
+		int cont = 0;
+
+		Integer tamanho_amostra = null;
+		while(!data_set.isEmpty())
+		{
+			cont++;
+			ArrayList<DataSetItem> item = data_set.next();
+			GenericStatistic statistica_teste = statistic1;
+			GenericStatistic statistica_teste2 = statistic2;
+			Number estatistica1 = statistica_teste.generateStatistic(item);
+			Number estatistica2 = statistica_teste2.generateStatistic(item);
+			if(tamanho_amostra==null)
+			{
+				tamanho_amostra = item.size();
+				limites_controle.setSampleSize(tamanho_amostra);
+			}
+			limites_controle.addData(item);
+			dataset.addValue(estatistica1, series2,String.valueOf(cont));
+			dataset.addValue(estatistica2, series3,String.valueOf(cont));
+		}
+
+
+
+		for(int cont2=1;cont2<=cont;cont2++)
+		{
+			Double lsc = limites_controle.calculateUpperControlLimit(new Double(cont2));
+			dataset.addValue(lsc, series1, String.valueOf(cont2));
+		}
+		return dataset;	
+	}
+	
 	public static DefaultCategoryDataset dataLineChart_regression(RegressionStatistic statistic, File arquivo, RegressionChartLimits limites_controle) throws DataSetException
 	{
 
