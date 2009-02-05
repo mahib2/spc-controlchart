@@ -157,6 +157,14 @@ public class LineChart {
 		return dataset;	
 	}
 	
+	/**
+	 * Desativado
+	 * @param statistic
+	 * @param arquivo
+	 * @param limites_controle
+	 * @return
+	 * @throws DataSetException
+	 */
 	public static DefaultCategoryDataset dataLineChart_regression(RegressionStatistic statistic, File arquivo, RegressionChartLimits limites_controle) throws DataSetException
 	{
 
