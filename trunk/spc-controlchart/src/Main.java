@@ -513,7 +513,7 @@ private void cusumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
 		ArrayList<Integer> n_plus = statistic1.getStored_Ns();
 		ArrayList<Integer> n_minus = statistic2.getStored_Ns();
 		
-		this.jTextArea1.setText("n" +"\t" +"ni" +"\t" +"ni-");
+		this.jTextArea1.setText("n" +"\t" +"ni+" +"\t" +"ni-");
 		
 		for(int cont=0;cont<n_plus.size();cont++)
 		{
