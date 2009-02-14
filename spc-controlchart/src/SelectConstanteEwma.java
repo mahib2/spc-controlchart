@@ -9,9 +9,11 @@ import statistic.GenericStatistic;
 import statistic.MedianStatistic;
 import statistic.StandardDeviationStatistic;
 import statistic.ZiStatistic;
+import controlcharts.CusumChartLimits;
 import controlcharts.GenericChartLimits;
 import controlcharts.MedianChartLimits;
 import controlcharts.StandardDeviationChartLimits;
+import controlcharts.ZiChartLimits;
 import data.DataSetException;
 
 /*
@@ -64,7 +66,7 @@ public class SelectConstanteEwma extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Selecione o valor da constante r, onde 0<r<=1");
 
-        textFieldConstanteEWMA.setText("0,1");
+        textFieldConstanteEWMA.setText("0.1");
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -119,13 +121,13 @@ public class SelectConstanteEwma extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ewmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ewmaActionPerformed
-    	
+    	ZiChartLimits limites = null;
 		this.setVisible(false);
 		String constante = this.textFieldConstanteEWMA.getText();
 		Double constante_double = Double.parseDouble(constante);
+	
+		GenericStatistic statistic = new ZiStatistic(constante_double, limites);
 		
-		GenericStatistic statistic = new ZiStatistic(constante_double//,PEGAR A MEDIA DA COLUNA);
-		GenericChartLimits limites = new MedianChartLimits(); 
 		File arquivo = this.parent.abrirArquivo();
 		ChartFrame frame;		
 		try 
@@ -139,7 +141,6 @@ public class SelectConstanteEwma extends javax.swing.JFrame {
 			// TODO tratar essa excessão
 			e.printStackTrace();
 		}
-
 
 }//GEN-LAST:event_ewmaActionPerformed
 
