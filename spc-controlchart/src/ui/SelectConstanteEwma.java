@@ -10,6 +10,7 @@ import statistic.GenericStatistic;
 import statistic.MedianStatistic;
 import statistic.StandardDeviationStatistic;
 import statistic.ZiStatistic;
+import configureCharts.GenerateGraphs;
 import controlcharts.CusumChartLimits;
 import controlcharts.GenericChartLimits;
 import controlcharts.MedianChartLimits;

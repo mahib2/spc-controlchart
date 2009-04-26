@@ -4,6 +4,7 @@ package ui;
  *
  * Created on 5 de Abril de 2008, 01:46
  */
+import configureCharts.GenerateGraphs;
 import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;

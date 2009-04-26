@@ -1,5 +1,7 @@
 package ui;
 
+
+
 import java.awt.Dimension;
 import java.io.File;
 
@@ -9,6 +11,7 @@ import org.jfree.chart.ChartFrame;
 import statistic.GenericStatistic;
 import statistic.MedianStatistic;
 import statistic.StandardDeviationStatistic;
+import configureCharts.GenerateGraphs;
 import controlcharts.GenericChartLimits;
 import controlcharts.MedianChartLimits;
 import controlcharts.StandardDeviationChartLimits;
