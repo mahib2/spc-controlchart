@@ -61,8 +61,7 @@ public class GenerateGraphs
 			true, 
 			true, 
 			false);*/
-			//ConfigureChart.alterarConfiguracaoGraficoLinha(chart);
-			
+					
 			XYDataset[] data_sets = RegressionChart.chart_regression((RegressionStatistic)statistic, arquivo, (RegressionChartLimits)limites);
 			
 			NumberAxis numberaxis = new NumberAxis("X");
@@ -80,35 +79,37 @@ public class GenerateGraphs
 	        //data set Linha
 	        xyplot.setDataset(1, data_sets[1]);
 	        XYLineAndShapeRenderer xylineandshaperenderer1 = new XYLineAndShapeRenderer(true, false);
-	        xylineandshaperenderer1.setSeriesPaint(0, Color.blue);
+	        xylineandshaperenderer1.setSeriesPaint(0, Color.RED);
 	        xyplot.setRenderer(1, xylineandshaperenderer1);
 	        
 	        xyplot.setDataset(2, data_sets[2]);
 	        XYLineAndShapeRenderer xylineandshaperenderer2 = new XYLineAndShapeRenderer(true, false);
-	        xylineandshaperenderer1.setSeriesPaint(0, Color.yellow);
+	        xylineandshaperenderer1.setSeriesPaint(0, Color.RED);
 	        xyplot.setRenderer(2, xylineandshaperenderer2);
 	        
 	        xyplot.setDataset(3, data_sets[3]);
 	        XYLineAndShapeRenderer xylineandshaperenderer3 = new XYLineAndShapeRenderer(true, false);
-	        xylineandshaperenderer1.setSeriesPaint(0, Color.orange);
+	        xylineandshaperenderer1.setSeriesPaint(0, Color.BLUE);
 	        xyplot.setRenderer(3, xylineandshaperenderer3);
 			
 	        xyplot.setDataset(4, data_sets[4]);
 	        XYLineAndShapeRenderer xylineandshaperenderer4 = new XYLineAndShapeRenderer(true, false);
-	        xylineandshaperenderer1.setSeriesPaint(0, Color.green);
+	        xylineandshaperenderer1.setSeriesPaint(0, Color.BLACK);
 	        xyplot.setRenderer(4, xylineandshaperenderer4);
 	        
 	        xyplot.setDataset(5, data_sets[5]);
 	        XYLineAndShapeRenderer xylineandshaperenderer5 = new XYLineAndShapeRenderer(true, false);
-	        xylineandshaperenderer1.setSeriesPaint(0, Color.gray);
+	        xylineandshaperenderer1.setSeriesPaint(0, Color.BLUE);
+	        
 	        xyplot.setRenderer(5, xylineandshaperenderer5);
 	        
 			chart = new JFreeChart("Linear Regression", JFreeChart.DEFAULT_TITLE_FONT, xyplot, true);
+			ConfigureChart.alterarConfiguracaoGraficoRegressao(chart);
 		}
 		else
 		{
 			chart = ChartFactory.createLineChart("Gráfico de Controle","Amostras","Estatística",LineChart.dataLineChart(statistic, arquivo,limites),PlotOrientation.VERTICAL,true, true, false);
-			ConfigureChart.alterarConfiguracaoGraficoLinha(chart);	
+				
 		}
 		return chart;	
 	}

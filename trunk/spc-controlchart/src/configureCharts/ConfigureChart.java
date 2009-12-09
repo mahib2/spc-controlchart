@@ -128,13 +128,15 @@ public class ConfigureChart
 		//tirar as linhas horizontais
 		plot.setRangeGridlinesVisible(false);		
 
-
-
 //		customise the range axis...
 		NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
 		rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+		
+		rangeAxis.setNegativeArrowVisible(true);
+		
+		
 		//fazer o eixo ficar próximos do menor valor
-		rangeAxis.setAutoRangeIncludesZero(false);
+		rangeAxis.setAutoRangeIncludesZero(true);
 
 
 //		customise the séries - cor, Shapes
@@ -144,64 +146,29 @@ public class ConfigureChart
 
 		//Amostras
 		renderer.setSeriesPaint(0,Color.BLUE);
-		//LSC
-		renderer.setSeriesPaint(1,Color.BLUE);
-		//MÉDIA
+		//Ci+
+		renderer.setSeriesPaint(1,Color.RED);
+		//Ci-
 		renderer.setSeriesPaint(2,Color.BLACK);
-		//LIC
-		/*renderer.setSeriesPaint(3,Color.BLUE);
-		//LIA
-		renderer.setSeriesPaint(4,Color.RED);
-		//LSA
-		renderer.setSeriesPaint(5,Color.RED);*/
-
+		
 		//mudar o shape (desenho que aparece no gráfico)
 
-		renderer.setSeriesShape(0,AbstractRenderer.DEFAULT_SHAPE);
+		renderer.setSeriesShape(1,AbstractRenderer.DEFAULT_SHAPE);
+		renderer.setSeriesShape(2,AbstractRenderer.DEFAULT_SHAPE);
 
 
 		//Amostras
-		renderer.setSeriesShapesVisible(0, true);        
+		renderer.setSeriesShapesVisible(1, true);
+		renderer.setSeriesShapesVisible(2, true);
 		//pintar o shape de outra cor
 		renderer.setSeriesFillPaint(0, Color.BLUE, false);
 		renderer.setSeriesShapesFilled(0,true);                                     
-
-
-		//mudar séries - pontilhada
-		/*renderer.setSeriesStroke(
-            0, new BasicStroke(
-                2.0f, BasicStroke.JOIN_ROUND, BasicStroke.JOIN_ROUND,
-                2.0f, new float[] {10.0f, 6.0f}, 1.0f
-            )
-        );
-
-        renderer.setSeriesStroke(
-            1, new BasicStroke(
-                2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
-                1.0f, new float[] {6.0f, 6.0f}, 0.0f
-            )
-        );
-        renderer.setSeriesStroke(
-            2, new BasicStroke(
-                2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
-                1.0f, new float[] {2.0f, 6.0f}, 0.0f
-            )
-        );*/                
+              
 	}
 	
 	public static void alterarConfiguracaoGraficoRegressao(JFreeChart chart)
 	{
-		// adicionando título
-		/*TextTitle title = new TextTitle("Título do Gráfico");
-		chart.addSubtitle(title);*/		
-		//remover a legenda
-		//chart.removeLegend();
-		// mudar cor do fundo
 		chart.setBackgroundPaint(Color.white);
-
-		// alterar o fundo com efeitos (gradiente), etc...
-		//Paint p = new GradientPaint(0, 0, Color.white, 1000, 0, Color.green);
-		//chart.setBackgroundPaint(p);
 
 		//instanciar gráfico
 		CategoryPlot plot = (CategoryPlot) chart.getPlot();
@@ -211,8 +178,6 @@ public class ConfigureChart
 		plot.setRangeGridlinePaint(Color.white);
 		//tirar as linhas horizontais
 		plot.setRangeGridlinesVisible(false);		
-
-
 
 //		customise the range axis...
 		NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
@@ -225,9 +190,19 @@ public class ConfigureChart
 		//Amostras
 		renderer.setSeriesShapesVisible(0, true);        
 		//pintar o shape de outra cor
-		renderer.setSeriesFillPaint(0, Color.YELLOW, false);
+		//LIA
+		renderer.setSeriesPaint(0,Color.BLUE);
+		//Ci+
+		renderer.setSeriesPaint(1,Color.RED);
+		//Ci-
+		renderer.setSeriesPaint(2,Color.BLACK);
+		
+		
+		
+		
+		/*renderer.setSeriesFillPaint(0, Color.YELLOW, false);
 		renderer.setSeriesShapesFilled(0,true);     
-		renderer.setSeriesShape(0,renderer.DEFAULT_SHAPE);
+		renderer.setSeriesShape(0,renderer.DEFAULT_SHAPE);*/
 		
 	}
 
