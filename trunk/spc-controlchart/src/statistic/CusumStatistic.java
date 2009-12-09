@@ -79,7 +79,7 @@ public class CusumStatistic implements GenericStatistic
 				 */
 				this.standard_deviation = this.chartLimits.getStandardDeviation();
 				this.average = this.chartLimits.getTotalAverage();
-				this.total_samples = this.chartLimits.getSample_size();
+				this.total_samples = this.chartLimits.getTotalSamples();
 			}
 			
 			this.k_big = this.calculate_k(this.k_small, this.standard_deviation, this.total_samples);
