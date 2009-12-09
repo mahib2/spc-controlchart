@@ -5,7 +5,6 @@ import java.util.Iterator;
 
 import statistic.AverageStatistic;
 import statistic.GenericStatistic;
-import statistic.MeanStatistic;
 import statistic.StandardDeviationStatistic;
 
 import data.DataSetItem;
@@ -91,6 +90,11 @@ public class CusumChartLimits implements GenericChartLimits
 		StandardDeviationStatistic calculador_desvio = new StandardDeviationStatistic(false);
 		Double retorno = calculador_desvio.generateStatistic(dados_medios);
 		return retorno;
+	}
+	
+	public Integer getTotalSamples()
+	{
+		return new Integer(this.data.size());
 	}
 	
 	public void setSampleSize(Integer size) 
