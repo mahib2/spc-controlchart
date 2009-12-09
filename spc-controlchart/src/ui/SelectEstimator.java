@@ -53,6 +53,7 @@ public class SelectEstimator extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Selecionar Estimador");
         setName("control_chart"); // NOI18N
 
         estimate.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "selecionar", "Sbar/dn", "Rbar/d2" }));

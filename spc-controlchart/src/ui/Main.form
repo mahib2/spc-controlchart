@@ -62,6 +62,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="control_chartActionPerformed"/>
               </Events>
               <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="selectBestChartjMenuItem">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Selecionar gr&#xe1;fico de controle"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selectBestChartjMenuItemActionPerformed"/>
+                  </Events>
+                </MenuItem>
                 <Menu class="javax.swing.JMenu" name="jMenu4">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Vari&#xe1;veis"/>

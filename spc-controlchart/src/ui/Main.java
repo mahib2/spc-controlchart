@@ -67,6 +67,7 @@ public class Main extends javax.swing.JFrame {
         basic_statistic = new javax.swing.JMenuItem();
         normality_test = new javax.swing.JMenuItem();
         control_chart = new javax.swing.JMenu();
+        selectBestChartjMenuItem = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
         control_chartAverage = new javax.swing.JMenuItem();
@@ -166,6 +167,14 @@ public class Main extends javax.swing.JFrame {
                 control_chartActionPerformed(evt);
             }
         });
+
+        selectBestChartjMenuItem.setText("Selecionar gráfico de controle");
+        selectBestChartjMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectBestChartjMenuItemActionPerformed(evt);
+            }
+        });
+        control_chart.add(selectBestChartjMenuItem);
 
         jMenu4.setText("Variáveis");
 
@@ -624,6 +633,13 @@ private void helpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:ev
 	
 }//GEN-LAST:event_helpActionPerformed
 
+private void selectBestChartjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectBestChartjMenuItemActionPerformed
+    // TODO add your handling code here:
+    this.setVisible(true);
+    SelectBestChart best_chart = new SelectBestChart(this);
+    best_chart.setVisible(true);
+}//GEN-LAST:event_selectBestChartjMenuItemActionPerformed
+
 public static File abrirArquivo()
 {
 	JFileChooser chooser = new JFileChooser();
@@ -684,6 +700,7 @@ public static void main(String args[]) {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JMenuItem normality_test;
     private javax.swing.JMenuItem regression;
+    private javax.swing.JMenuItem selectBestChartjMenuItem;
     // End of variables declaration//GEN-END:variables
 
 }

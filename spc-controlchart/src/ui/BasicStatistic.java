@@ -73,6 +73,7 @@ public class BasicStatistic extends javax.swing.JFrame {
         media = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Estatística Básica");
         setName("basic_estat"); // NOI18N
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

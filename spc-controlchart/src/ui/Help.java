@@ -51,6 +51,7 @@ public class Help extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Ajuda");
         setName("control_chart"); // NOI18N
 
         jLabel2.setText("GEPEC-LASIG");
