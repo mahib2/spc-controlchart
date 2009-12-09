@@ -54,6 +54,7 @@ public class SelectConstanteEwma extends javax.swing.JFrame {
         textFieldConstanteEWMA = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Selecionar Constante EWMA");
         setName("control_chart"); // NOI18N
 
         jLabel2.setText("Constante:");
@@ -65,10 +66,10 @@ public class SelectConstanteEwma extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel3.setText("Selecione o valor da constante r, onde 0<r<=1");
 
-        textFieldConstanteEWMA.setText("0.1");
+        textFieldConstanteEWMA.setText("0,1");
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
