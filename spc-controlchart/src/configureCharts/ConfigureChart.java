@@ -1,23 +1,14 @@
 package configureCharts;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.geom.Point2D;
 
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.LegendItem;
-import org.jfree.chart.LegendItemSource;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.AbstractRenderer;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
-import org.jfree.chart.title.LegendGraphic;
-import org.jfree.chart.title.LegendTitle;
-import org.jfree.chart.title.TextTitle;
-import org.jfree.ui.StrokeSample;
-import org.jfree.util.ShapeList;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 
 public class ConfigureChart 
 {
@@ -169,9 +160,9 @@ public class ConfigureChart
 	public static void alterarConfiguracaoGraficoRegressao(JFreeChart chart)
 	{
 		chart.setBackgroundPaint(Color.white);
-
+		/*
 		//instanciar gráfico
-		CategoryPlot plot = (CategoryPlot) chart.getPlot();
+		XYPlot plot = (XYPlot) chart.getPlot();
 		//mudar a cor do fundo
 		plot.setBackgroundPaint(Color.white);
 		//mudar a cor da linha horizontal
@@ -185,17 +176,17 @@ public class ConfigureChart
 		//fazer o eixo ficar próximos do menor valor
 		rangeAxis.setAutoRangeIncludesZero(false);
 		//instanciar gráfico
-		CategoryPlot plotregressao = (CategoryPlot) chart.getPlot();
-		LineAndShapeRenderer renderer = (LineAndShapeRenderer) plotregressao.getRenderer();
+		XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot.getRenderer();
 		//Amostras
 		renderer.setSeriesShapesVisible(0, true);        
+		renderer.setSeriesShapesVisible(1, true);
 		//pintar o shape de outra cor
 		//LIA
-		renderer.setSeriesPaint(0,Color.BLUE);
+		renderer.setSeriesPaint(0,Color.BLACK);
 		//Ci+
-		renderer.setSeriesPaint(1,Color.RED);
+		renderer.setSeriesPaint(1,Color.BLACK);
 		//Ci-
-		renderer.setSeriesPaint(2,Color.BLACK);
+		renderer.setSeriesPaint(2,Color.BLACK);*/
 		
 		
 		
