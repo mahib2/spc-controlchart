@@ -36,8 +36,8 @@ public class MovingRangeChartLimits extends GenericChartLimitsBase
 	{
 		if(this.term2==null)
 		{
-			Double d2 = D2.calculate(this.sample_size);
-			Double d3 = D3.calculate(this.sample_size);
+			Double d2 = D2.calculate(2);
+			Double d3 = D3.calculate(2);
 			
 			//calculo do termo2
 			MovingRangeStatistic amplitude = new MovingRangeStatistic();
