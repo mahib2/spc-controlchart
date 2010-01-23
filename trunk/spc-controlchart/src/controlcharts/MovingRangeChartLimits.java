@@ -4,15 +4,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import constants.D2;
+import constants.D3;
 
 
-import statistic.AmplitudeStatistic;
+
 import statistic.AverageStatistic;
 import statistic.GenericStatistic;
+import statistic.MovingRangeStatistic;
+
 
 import data.DataSetItem;
 
-public class AverageChartLimits extends GenericChartLimitsBase
+public class MovingRangeChartLimits extends GenericChartLimitsBase
 {
 	private Double term1; 
 	private Double term2;		
@@ -21,8 +24,8 @@ public class AverageChartLimits extends GenericChartLimitsBase
 	{
 		if(this.term1==null)
 		{
-			AverageStatistic average = new AverageStatistic();
-			this.term1 = this.calculateAverage(average); 						
+			MovingRangeStatistic amplitude = new MovingRangeStatistic();
+			this.term1 = this.calculateAverage(amplitude); 						
 			
 		}
 		return term1; 
@@ -33,21 +36,13 @@ public class AverageChartLimits extends GenericChartLimitsBase
 	{
 		if(this.term2==null)
 		{
-			int n = this.sample_size;
-			double n_raiz = Math.sqrt(n); 
 			Double d2 = D2.calculate(this.sample_size);
-//			Double cn = Cn.calculate(this.sample_size);
-			// colocar a escolha do estimador aqui!!!
+			Double d3 = D3.calculate(this.sample_size);
 			
 			//calculo do termo2
-			AmplitudeStatistic amplitude = new AmplitudeStatistic();
-			Double R_barra = this.calculateAverage(amplitude);
-			this.term2 =  R_barra/(d2*n_raiz);
-			
-			//testes Sbarra/cn
-//			StandardDeviationStatistic desvio = new StandardDeviationStatistic(true);
-//			Double S_barra = this.calculateAverageMedian(desvio);
-//			this.term2 = S_barra/(cn*n_raiz);
+			MovingRangeStatistic amplitude = new MovingRangeStatistic();
+			Double media_MR = this.calculateAverage(amplitude);
+			this.term2 =  d3*media_MR/d2;
 		}
 		return this.term2;
 	}
@@ -65,13 +60,13 @@ public class AverageChartLimits extends GenericChartLimitsBase
 		
 	private Double calculateAverage(GenericStatistic statistic)
 	{
-		GenericStatistic median = statistic;
+		GenericStatistic moving_range = statistic;
 		ArrayList<DataSetItem> dados_para_media = new ArrayList<DataSetItem>(this.data.size());
 		for(Iterator<ArrayList<DataSetItem>> it = this.data.iterator();
 		it.hasNext();)
 		{
 			ArrayList<DataSetItem> amostra = it.next();
-			Double desvio = median.generateStatistic(amostra);
+			Double desvio = moving_range.generateStatistic(amostra);
 			DataSetItem novo_item = new DataSetItem();
 			novo_item.setX(0.0);
 			novo_item.setY(desvio);
