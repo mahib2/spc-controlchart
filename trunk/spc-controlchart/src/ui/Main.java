@@ -22,6 +22,7 @@ import statistic.AmplitudeStatistic;
 import statistic.AverageStatistic;
 import statistic.CusumStatistic;
 import statistic.GenericStatistic;
+import statistic.MovingRangeStatistic;
 import statistic.RegressionStatistic;
 import statistic.StandardDeviationStatistic;
 import types.DataConverter;
@@ -30,6 +31,7 @@ import controlcharts.AmplitudeChartLimits;
 import controlcharts.AverageChartLimits;
 import controlcharts.CusumChartLimits;
 import controlcharts.GenericChartLimits;
+import controlcharts.MovingRangeChartLimits;
 import controlcharts.RegressionChartLimits;
 import controlcharts.StandardDeviationChartLimits;
 import data.DataSetCsvIterator;
@@ -545,6 +547,24 @@ private void cusumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
 
 private void control_chartMRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_control_chartMRActionPerformed
     // TODO add your handling code here:
+	this.setVisible(true);
+	GenericStatistic statistic = new MovingRangeStatistic();
+	GenericChartLimits limites = new MovingRangeChartLimits(); 
+	File arquivo = abrirArquivo();
+	ChartFrame frame;		
+	try 
+	{
+		frame = new ChartFrame("Gerando Gráfico", GenerateGraphs.lineChart(statistic, arquivo, limites));
+		frame.pack();
+		frame.setVisible(true);                        
+		Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();                          
+		frame.setLocation(200,200);                        
+	} catch (DataSetException e) {
+		// TODO tratar essa excessão
+		e.printStackTrace();
+	}	
+
+
 }//GEN-LAST:event_control_chartMRActionPerformed
 
 private void control_chartRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_control_chartRActionPerformed
