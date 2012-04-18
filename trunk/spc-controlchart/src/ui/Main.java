@@ -22,6 +22,8 @@ import statistic.AmplitudeStatistic;
 import statistic.AverageStatistic;
 import statistic.CusumStatistic;
 import statistic.GenericStatistic;
+import statistic.MeanStatistic;
+import statistic.MedianStatistic;
 import statistic.MovingRangeStatistic;
 import statistic.RegressionStatistic;
 import statistic.StandardDeviationStatistic;
@@ -31,9 +33,11 @@ import controlcharts.AmplitudeChartLimits;
 import controlcharts.AverageChartLimits;
 import controlcharts.CusumChartLimits;
 import controlcharts.GenericChartLimits;
+import controlcharts.MedianChartLimits;
 import controlcharts.MovingRangeChartLimits;
 import controlcharts.RegressionChartLimits;
 import controlcharts.StandardDeviationChartLimits;
+import controlcharts.XIndividualChartLimits;
 import data.DataSetCsvIterator;
 import data.DataSetException;
 import data.DataSetIterate;
@@ -547,14 +551,14 @@ private void cusumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
 
 private void control_chartMRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_control_chartMRActionPerformed
     // TODO add your handling code here:
-	this.setVisible(true);
+	this.setVisible(false);
 	GenericStatistic statistic = new MovingRangeStatistic();
 	GenericChartLimits limites = new MovingRangeChartLimits(); 
-	File arquivo = abrirArquivo();
+	File arquivo = this.abrirArquivo();
 	ChartFrame frame;		
 	try 
 	{
-		frame = new ChartFrame("Gerando Gráfico", GenerateGraphs.lineChart(statistic, arquivo, limites));
+		frame = new ChartFrame("Gerando Gráfico", GenerateGraphs.lineChart(statistic, arquivo,limites));
 		frame.pack();
 		frame.setVisible(true);                        
 		Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();                          
@@ -562,7 +566,7 @@ private void control_chartMRActionPerformed(java.awt.event.ActionEvent evt) {//G
 	} catch (DataSetException e) {
 		// TODO tratar essa excessão
 		e.printStackTrace();
-	}	
+	}
 
 
 }//GEN-LAST:event_control_chartMRActionPerformed
@@ -642,6 +646,22 @@ private void ewmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:ev
 
 private void control_chartXbarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_control_chartXbarActionPerformed
     // TODO add your handling code here:
+	this.setVisible(false);
+	GenericStatistic statistic = new MeanStatistic();
+	GenericChartLimits limites = new XIndividualChartLimits(); 
+	File arquivo = OpenActionPerformed(evt);
+	ChartFrame frame;		
+	try 
+	{
+		frame = new ChartFrame("Gerando Gráfico", GenerateGraphs.lineChart(statistic, arquivo,limites));
+		frame.pack();
+		frame.setVisible(true);                        
+		Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();                          
+		frame.setLocation(200,200);                        
+	} catch (DataSetException e) {
+		// TODO tratar essa excessão
+		e.printStackTrace();
+	}
 }//GEN-LAST:event_control_chartXbarActionPerformed
 
 private void helpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpActionPerformed

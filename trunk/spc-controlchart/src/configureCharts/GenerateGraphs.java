@@ -77,7 +77,7 @@ public class GenerateGraphs
 		else
 		{
 			chart = ChartFactory.createLineChart("Gráfico de Controle","Amostras","Estatística",LineChart.dataLineChart(statistic, arquivo,limites),PlotOrientation.VERTICAL,true, true, false);
-				
+			ConfigureChart.alterarConfiguracaoGraficoLinha(chart);				
 		}
 		return chart;	
 	}
