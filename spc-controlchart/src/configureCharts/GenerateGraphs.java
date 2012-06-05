@@ -17,6 +17,7 @@ import statistic.RegressionStatistic;
 import controlcharts.GenericChartLimits;
 import controlcharts.RegressionChartLimits;
 import data.DataSetException;
+import statistic.ZiPStatistic;
 
 public class GenerateGraphs 
 {
@@ -73,6 +74,11 @@ public class GenerateGraphs
 	        
 			chart = new JFreeChart("Linear Regression", JFreeChart.DEFAULT_TITLE_FONT, xyplot, true);
 			ConfigureChart.alterarConfiguracaoGraficoRegressao(chart);
+		}
+                 else if (statistic instanceof ZiPStatistic)
+		{
+			chart = ChartFactory.createLineChart("Gráfico de Controle","Amostras","Estatística",LineChart.dataLineChartZi(statistic, arquivo,limites),PlotOrientation.VERTICAL,true, true, false);
+			ConfigureChart.alterarConfiguracaoGraficoLinha(chart);				
 		}
 		else
 		{

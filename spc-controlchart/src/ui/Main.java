@@ -16,7 +16,7 @@ import math.CalculateStatisticBasic;
 
 import org.jfree.chart.ChartFrame;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+//import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import statistic.AmplitudeStatistic;
 import statistic.AverageStatistic;
