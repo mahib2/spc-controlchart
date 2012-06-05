@@ -36,13 +36,19 @@ public class ConfigureChart
 		plot.setRangeGridlinesVisible(false);		
 
 
-
+                /* customização original
 //		customise the range axis...
 		NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
 		rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 		//fazer o eixo ficar próximos do menor valor
 		rangeAxis.setAutoRangeIncludesZero(false);
-
+               */
+                // modificado
+                NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+		//rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+		//fazer o eixo ficar pr?ximos do menor valor
+                //rangeAxis.setRange(0, 0.4);  
+		rangeAxis.setAutoRangeIncludesZero(false);//modificado antes era false
 
 //		customise the séries - cor, Shapes
 

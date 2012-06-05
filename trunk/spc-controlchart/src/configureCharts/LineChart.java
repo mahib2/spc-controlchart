@@ -157,6 +157,70 @@ public class LineChart {
 
 		return dataset;	
 	}
+         public static DefaultCategoryDataset dataLineChartZi(GenericStatistic statistic, File arquivo, GenericChartLimits limites_controle) throws DataSetException
+	{
+//		define os nomes das linhas
+		String series1 = "LSC";
+		String series2 = "LC";
+		String series3 = "LIC";
+		String series4 = "Amostras";
+		String series5 = "LIA";
+		String series6 = "LSA";
+
+		// define o eixo x
+		/*String type1 = "1";
+		String type2 = "2";
+		String type3 = "3";
+		String type4 = "4";
+		String type5 = "5";*/
+
+		// create the dataset...
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+
+		if(arquivo==null)
+		{
+			return null;
+		}
+
+		DataConverter conversor_long = new DoubleDataConverter();
+		DataSetIterate data_set = new DataSetCsvIterator(arquivo,conversor_long,false,null);
+		int cont = 0;
+
+		Integer tamanho_amostra = null;
+		while(!data_set.isEmpty())
+		{
+			cont++;
+			ArrayList<DataSetItem> item = data_set.next();
+                        if(tamanho_amostra==null)
+			{
+				tamanho_amostra = item.size();
+				limites_controle.setSampleSize(tamanho_amostra);
+			}
+			limites_controle.addData(item);
+			GenericStatistic statistica_teste = statistic;
+			Number estatistica = statistica_teste.generateStatistic(item);
+		
+			dataset.addValue(estatistica, series4,String.valueOf(cont));
+		}
+
+
+
+		for(int cont2=1;cont2<=cont;cont2++)
+		{
+			Double lc = limites_controle.calculateCentralLine(new Double(cont2));
+			Double lsc = limites_controle.calculateUpperControlLimit(new Double(cont2));
+			Double lic = limites_controle.calculateLowerControlLimit(new Double(cont2));
+			Double lia = limites_controle.calculateLowerAdvertenceLimit(new Double(cont2));
+			Double lsa = limites_controle.calculateUpperAdvertenceLimit(new Double(cont2));
+			dataset.addValue(lsc, series1, String.valueOf(cont2));
+			dataset.addValue(lc, series2, String.valueOf(cont2));
+			dataset.addValue(lic, series3, String.valueOf(cont2));
+			dataset.addValue(lia, series5, String.valueOf(cont2));
+			dataset.addValue(lsa, series6, String.valueOf(cont2));
+		}
+		return dataset;	
+	}
 	
 	/**
 	 * Desativado

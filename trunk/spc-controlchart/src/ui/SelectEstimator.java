@@ -57,6 +57,11 @@ public class SelectEstimator extends javax.swing.JFrame {
         setName("control_chart"); // NOI18N
 
         estimate.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "selecionar", "Sbar/dn", "Rbar/d2" }));
+        estimate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                estimateActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Estimator");
 
@@ -67,7 +72,7 @@ public class SelectEstimator extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Select Estimator");
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
@@ -113,7 +118,7 @@ public class SelectEstimator extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+                .addContainerGap(28, Short.MAX_VALUE)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -141,6 +146,10 @@ public class SelectEstimator extends javax.swing.JFrame {
 
 
 	}//GEN-LAST:event_jButton1ActionPerformed
+
+    private void estimateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estimateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_estimateActionPerformed
 
 	/**
 	 * @param agrs the command line arguments

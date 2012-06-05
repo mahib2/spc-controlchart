@@ -1,25 +1,8 @@
 package statistic;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import javax.swing.JFileChooser;
-
-import org.apache.commons.math.stat.descriptive.moment.Mean;
-import org.apache.commons.math.stat.descriptive.rank.Median;
-
-import controlcharts.CusumChartLimits;
 import controlcharts.ZiChartLimits;
-
-import types.DataConverter;
-import types.DoubleDataConverter;
-import types.TypeUtilities;
-
-import data.DataSetCsvIterator;
-import data.DataSetException;
 import data.DataSetItem;
-import data.DataSetIterate;
+import java.util.ArrayList;
 
 public class ZiStatistic implements GenericStatistic {
 	private Double constante;
